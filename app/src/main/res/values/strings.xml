@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+
+    <string name="txtConfiguraciones">Configuaraciones</string>
+    <string name="txtListas">Listas</string>
+    <string name="txtOfertas">Ofertas</string>
+    <string name="title_activity_lista"></string>
+
+    <string name="txtNuevaLista">Nueva Lista</string>
 </resources>

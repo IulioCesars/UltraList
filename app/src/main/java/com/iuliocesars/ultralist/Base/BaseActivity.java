@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity
 
         }catch (Exception ex)
         {
-
+            int i=0;
         }
     }
 

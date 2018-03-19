@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity
     FloatingActionButton fabAgregarLista;
     RecyclerView rvListas;
     List<Lista> lstListas;
-    ListaAdapter la;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +65,23 @@ public class MainActivity extends BaseActivity
 
         IniciarListas();
     }
+
+    private void IniciarListas()
+    {
+        lstListas = new ArrayList<>();
+        lstListas.add(new Lista("Nombre1", "Descripcion"));
+        lstListas.add(new Lista("Nombre2", "Descripcion"));
+        lstListas.add(new Lista("Nombre3", "Descripcion"));
+        lstListas.add(new Lista("Nombre4", "Descripcion"));
+        lstListas.add(new Lista("Nombre5", "Descripcion"));
+        lstListas.add(new Lista("Nombre6", "Descripcion"));
+        ListaAdapter la = new ListaAdapter(lstListas);
+        rvListas.setAdapter(la);
+        rvListas.setLayoutManager(
+                new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rvListas.setItemAnimator(new DefaultItemAnimator());
+    }
+
     @Override
     protected void IniciarEventos()
     {
@@ -82,29 +98,6 @@ public class MainActivity extends BaseActivity
                 startActivityForResult(i, RequestCode.ListaActivity);
             }
         });
-
-        la.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Pulsado el elemento " + rvListas.getChildPosition(view), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void IniciarListas()
-    {
-        lstListas = new ArrayList<>();
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        lstListas.add(new Lista("Nombre", "Descripcion"));
-        la = new ListaAdapter(lstListas);
-        rvListas.setAdapter(la);
-        rvListas.setLayoutManager(
-                new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rvListas.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override

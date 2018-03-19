@@ -13,4 +13,10 @@
     <string name="title_activity_lista"></string>
 
     <string name="txtNuevaLista">Nueva Lista</string>
+    <string name="txtCantidad">Cantidad:</string>
+    <string name="txtPrecioUnitario">Precio Unitario:</string>
+    <string name="txtPrecioTotal">Precio Total:</string>
+    <string name="txtCategoria">Categoria:</string>
+
+    <string name="txtNombreArticulo">Nombre del articulo</string>
 </resources>

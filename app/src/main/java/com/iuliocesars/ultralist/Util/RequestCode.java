@@ -8,4 +8,5 @@ public class RequestCode
 {
     public static final int MainActivity  = 1000;
     public static final int ListaActivity  = 1001;
+    public static final int ArticuloActivity  = 1002;
 }

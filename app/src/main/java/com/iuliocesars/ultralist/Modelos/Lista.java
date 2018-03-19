@@ -1,5 +1,6 @@
 package com.iuliocesars.ultralist.Modelos;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -7,7 +8,7 @@ import java.sql.Timestamp;
  * Created by IulioCesars on 10/03/2018.
  */
 
-public class Lista
+public class Lista implements Serializable
 {
     private int id_lista;
     private String nombre;

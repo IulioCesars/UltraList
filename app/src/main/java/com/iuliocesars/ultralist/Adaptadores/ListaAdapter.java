@@ -1,14 +1,20 @@
 package com.iuliocesars.ultralist.Adaptadores;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.R;
+import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.RequestCode;
 
 import java.util.List;
 
@@ -18,7 +24,6 @@ import java.util.List;
 
 public class ListaAdapter
     extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder>
-    implements View.OnClickListener
 {
     private List<Lista> lstLista;
     private View.OnClickListener listener;
@@ -30,7 +35,7 @@ public class ListaAdapter
     public static class ListaViewHolder extends RecyclerView.ViewHolder
     {
         private TextView tvNombre, tvDescripcion;
-
+        Lista lista;
         public ListaViewHolder(View itemView) {
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombre);
@@ -39,9 +44,22 @@ public class ListaAdapter
 
         public void Bind(Lista l)
         {
+            lista = l;
             tvNombre.setText(l.getNombre());
             tvDescripcion.setText(l.getDescripcion());
+
+            this.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Activity parentActivity = (Activity) view.getContext();
+                    //Toast.makeText(parentActivity, "SDFSDF", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(parentActivity, ListaActivity.class);
+                    i.putExtra(Extras.Lista, lista);
+                    parentActivity.startActivityForResult(i, RequestCode.ListaActivity);
+                }
+            });
         }
+
     }
 
     @Override
@@ -50,7 +68,7 @@ public class ListaAdapter
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adaptador_elemento_lista, parent, false);
 
-        itemView.setOnClickListener(this);
+        //itemView.setOnClickListener(this);
 
         ListaViewHolder lvh = new ListaViewHolder(itemView);
         return lvh;
@@ -67,13 +85,5 @@ public class ListaAdapter
         return lstLista.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
 
-    @Override
-    public void onClick(View view) {
-        if(listener != null)
-            listener.onClick(view);
-    }
 }

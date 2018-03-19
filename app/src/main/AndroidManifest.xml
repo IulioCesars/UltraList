@@ -22,7 +22,8 @@
         <activity
             android:name=".Activity.ListaActivity"
             android:label="@string/title_activity_lista"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.ArticuloActivity"></activity>
     </application>
 
 </manifest>

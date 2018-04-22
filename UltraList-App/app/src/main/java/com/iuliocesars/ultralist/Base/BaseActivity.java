@@ -32,11 +32,11 @@ public class BaseActivity extends AppCompatActivity
         return  0;
     }
 
-    protected void IniciarViews() {
+    protected void IniciarViews() { }
 
-    }
+    protected void IniciarEventos() { }
 
-    protected void IniciarEventos() {
+    protected void CargarRegistro() { }
 
-    }
+    protected void GuardarRegistro() {}
 }

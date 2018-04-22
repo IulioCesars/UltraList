@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Activity.ArticuloActivity;
+import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
@@ -74,7 +74,8 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
                 public void onClick(View view) {
                     Activity parentActivity = (Activity) view.getContext();
                     //Toast.makeText(parentActivity, "ASDASDASD", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(parentActivity, ArticuloActivity.class);
+
+                    Intent i = new Intent(parentActivity, ArticuloScrollingActivity.class);
                     i.putExtra(Extras.Articulo, articulo);
                     parentActivity.startActivityForResult(i, RequestCode.ArticuloActivity);
                 }

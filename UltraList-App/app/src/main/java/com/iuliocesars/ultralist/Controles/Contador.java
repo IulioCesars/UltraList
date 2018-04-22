@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.iuliocesars.ultralist.R;
 
+import java.math.BigDecimal;
+
 import static android.text.InputType.*;
 
 /**
@@ -57,7 +59,7 @@ public class Contador {
         });
     }
 
-    private void AsignarValor(int nuevoValor)
+    public void AsignarValor(int nuevoValor)
     {
         String mensaje = null;
 
@@ -84,10 +86,47 @@ public class Contador {
 
     }
 
+    public void AsignarValor(BigDecimal nuevoValor)
+    {
+        String mensaje = null;
+        BigDecimal bValorMinimo, bValorMaximo;
+        bValorMinimo = new BigDecimal(valorMinimo);
+        bValorMaximo = new BigDecimal(valorMaximo);
+
+        if(nuevoValor.doubleValue() < bValorMinimo.doubleValue() && valorMinimo != -1)
+        {
+            nuevoValor = bValorMinimo;
+            mensaje = c.getResources().getString(R.string.txtValidacionValorMinimo) + valorMinimo;
+        }
+
+        if(nuevoValor.doubleValue() > bValorMaximo.doubleValue() && valorMaximo != -1)
+        {
+            nuevoValor = bValorMaximo;
+            mensaje = c.getResources().getString(R.string.txtValidacionValorMaximo) + valorMaximo;
+        }
+
+        etValor.setText(nuevoValor.toString());
+
+        /*
+        if(mensaje != null)
+        {
+            Toast.makeText(c, mensaje, Toast.LENGTH_SHORT).show();
+        }
+        */
+
+    }
+
     public int ObtenerValor()
     {
         String sValor = etValor.getText().toString();
         return Integer.parseInt(sValor);
+    }
+
+    public BigDecimal ObtenerValorDecimal(){
+        String sValor = etValor.getText().toString();
+        BigDecimal bdValor = new BigDecimal(sValor);
+
+        return bdValor;
     }
 
     public void setValorMinimo(int valorMinimo) {

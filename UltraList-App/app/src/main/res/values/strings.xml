@@ -26,4 +26,8 @@
     <string name="txtPrecioUnitarioArticulo">Precio Unitario</string>
     <string name="txtValidacionValorMinimo">El valor no puede ser menor a</string>
     <string name="txtValidacionValorMaximo">El valor no puede ser mayor a</string>
+
+    <array name="arrCategorias">
+        <item>Ninguna</item>
+    </array>
 </resources>

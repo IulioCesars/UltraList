@@ -1,10 +1,17 @@
 package com.iuliocesars.ultralist.Modelos;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 
+import com.iuliocesars.ultralist.Util.Result;
+
+import java.io.FileInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Map;
 
 /**
  * Created by IulioCesars on 10/03/2018.
@@ -17,7 +24,7 @@ public class Articulo implements Serializable
     private String nombre;
     private String descripcion;
     private String categoria;
-    private Image foto;
+    private Bitmap foto;
     private BigDecimal precio;
     private int cantidad;
     private boolean comprado;
@@ -28,8 +35,9 @@ public class Articulo implements Serializable
     private int usuario_modifico;
     private Timestamp fecha_modifico;
     private int estatus;
+    private String image_path;
 
-    public Articulo(int id_articulo, int fk_lista, String nombre, String descripcion, String categoria, Image foto, BigDecimal precio, int cantidad, boolean comprado, boolean es_oferta, int usuario_agrego, Timestamp fecha_agrego, int usuario_modifico, Timestamp fecha_modifico, int estatus) {
+    public Articulo(int id_articulo, int fk_lista, String nombre, String descripcion, String categoria, Bitmap foto, BigDecimal precio, int cantidad, boolean comprado, boolean es_oferta, int usuario_agrego, Timestamp fecha_agrego, int usuario_modifico, Timestamp fecha_modifico, int estatus) {
         this.id_articulo = id_articulo;
         this.fk_lista = fk_lista;
         this.nombre = nombre;
@@ -53,6 +61,8 @@ public class Articulo implements Serializable
         this.categoria = categoria;
         this.precio = precio;
     }
+
+    public Articulo() {}
 
     public int getId_articulo() {
         return id_articulo;
@@ -94,11 +104,11 @@ public class Articulo implements Serializable
         this.categoria = categoria;
     }
 
-    public Image getFoto() {
+    public Bitmap getFoto() {
         return foto;
     }
 
-    public void setFoto(Image foto) {
+    public void setFoto(Bitmap foto) {
         this.foto = foto;
     }
 
@@ -166,11 +176,34 @@ public class Articulo implements Serializable
         this.fecha_modifico = fecha_modifico;
     }
 
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
     public int getEstatus() {
         return estatus;
     }
 
     public void setEstatus(int estatus) {
         this.estatus = estatus;
+    }
+
+    public Result<Bitmap> ObtenerImagen(Activity activity)
+    {
+            try
+            {
+                FileInputStream fis = activity.openFileInput(this.getImage_path());
+                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                return new Result<>(true, bitmap);
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+
+            }
+        return new Result<>(false, null);
     }
 }

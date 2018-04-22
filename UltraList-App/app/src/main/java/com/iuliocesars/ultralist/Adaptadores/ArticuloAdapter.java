@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.iuliocesars.ultralist.Activity.ArticuloActivity;
 import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.R;

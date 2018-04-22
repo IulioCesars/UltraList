@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.iuliocesars.ultralist.Adaptadores.ArticuloAdapter;
 import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
+import com.iuliocesars.ultralist.DAO.ArticuloDAO;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.RequestCode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -79,13 +81,7 @@ public class ListaActivity extends BaseActivity{
 
     private void CargarArticulos()
     {
-        lstArticulos = new ArrayList<>();
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
-        lstArticulos.add(new Articulo("Nombre", "Desc", "Categoria", new BigDecimal(15)));
+        lstArticulos = new ArticuloDAO(this).ObtenerTodo();
 
         ArticuloAdapter aa = new ArticuloAdapter(lstArticulos);
         rvArticulos.setAdapter(aa);
@@ -100,9 +96,28 @@ public class ListaActivity extends BaseActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(ListaActivity.this, ArticuloScrollingActivity.class);
+                i.putExtra(Extras.fk_Lista, 0);
+                startActivityForResult(i, RequestCode.ArticuloActivity);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode)
+        {
+            case RequestCode.ArticuloActivity:
+                {
+                    if(resultCode == RESULT_OK)
+                    { CargarArticulos(); }
+                    break;
+                }
+
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

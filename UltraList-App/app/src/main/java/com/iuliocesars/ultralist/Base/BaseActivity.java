@@ -20,6 +20,7 @@ public class BaseActivity extends AppCompatActivity
             setContentView(DefinirLayout());
             IniciarViews();
             IniciarEventos();
+            CargarRegistro();
 
         }catch (Exception ex)
         {

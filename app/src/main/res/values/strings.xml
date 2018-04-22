@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">UltraList</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+
+    <string name="txtConfiguraciones">Configuaraciones</string>
+    <string name="txtListas">Listas</string>
+    <string name="txtOfertas">Ofertas</string>
+    <string name="title_activity_lista"></string>
+
+    <string name="txtNuevaLista">Nueva Lista</string>
+    <string name="txtCantidad">Cantidad:</string>
+    <string name="txtPrecioUnitario">Precio Unitario:</string>
+    <string name="txtPrecioTotal">Precio Total:</string>
+    <string name="txtCategoria">Categoria:</string>
+
+    <string name="txtNombreArticulo">Nombre del articulo</string>
+</resources>

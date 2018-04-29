@@ -19,4 +19,5 @@ public interface InterfaceDAO<T>
     public T Obtener(int id);
     public T ObtenerEntidad(Cursor c);
 
+
 }

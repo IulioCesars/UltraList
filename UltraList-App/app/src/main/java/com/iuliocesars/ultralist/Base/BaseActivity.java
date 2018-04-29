@@ -14,18 +14,11 @@ public class BaseActivity extends AppCompatActivity
 {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        try
-        {
-            super.onCreate(savedInstanceState);
-            setContentView(DefinirLayout());
-            IniciarViews();
-            IniciarEventos();
-            CargarRegistro();
-
-        }catch (Exception ex)
-        {
-            int i=0;
-        }
+        super.onCreate(savedInstanceState);
+        setContentView(DefinirLayout());
+        IniciarViews();
+        IniciarEventos();
+        CargarRegistro();
     }
 
     protected int DefinirLayout()

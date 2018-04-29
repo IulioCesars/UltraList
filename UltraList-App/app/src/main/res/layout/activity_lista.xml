@@ -41,12 +41,21 @@
                 android:orientation="vertical"
                 >
 
-                <EditText
-                    android:id="@+id/etNombreLista"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/txtNuevaLista"
-                    />
+                    android:orientation="horizontal"
+                    android:weightSum="1.0"
+                    >
+                    <EditText
+                        android:id="@+id/etNombreLista"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/txtNuevaLista"
+                        android:layout_weight="0.90"
+                        />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvTotal"
@@ -61,14 +70,14 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_lista" />
+    <include android:id="@+id/content_lista" layout="@layout/content_lista" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
+        app:layout_anchor="@id/content_lista"
         app:layout_anchorGravity="bottom|end"
         app:fabSize="normal"
         android:tint="@color/colorBlanco"

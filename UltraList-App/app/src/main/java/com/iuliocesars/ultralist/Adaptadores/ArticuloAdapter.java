@@ -52,7 +52,7 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
             tvNombre.setText(articulo.getNombre());
 
             tvCategoria.setText(
-                    itemView.getResources().getString(R.string.txtCantidad) + " " +
+                    itemView.getResources().getString(R.string.txtCategoria) + " " +
                     articulo.getCategoria()
             );
             tvCantidad.setText(
@@ -80,6 +80,8 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
                 }
             });
         }
+
+
     }
 
     @Override

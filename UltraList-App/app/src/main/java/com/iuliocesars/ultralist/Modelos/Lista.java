@@ -21,6 +21,9 @@ public class Lista implements Serializable
     private Timestamp fecha_modifico;
     private int estatus;
 
+    public Lista() {
+    }
+
     public Lista(int id_lista, String nombre, String descripcion, BigDecimal presupuesto, int usuario_agrego, Timestamp fecha_agrego, int usuario_modifico, Timestamp fecha_modifico, int estatus, int privacidad) {
         this.id_lista = id_lista;
         this.nombre = nombre;

@@ -3,7 +3,6 @@ package com.iuliocesars.ultralist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,19 +11,17 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
+import com.iuliocesars.ultralist.DAO.DAO;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity
@@ -63,18 +60,12 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        IniciarListas();
+        CargarListas();
     }
 
-    private void IniciarListas()
+    private void CargarListas()
     {
-        lstListas = new ArrayList<>();
-        lstListas.add(new Lista("Nombre1", "Descripcion"));
-        lstListas.add(new Lista("Nombre2", "Descripcion"));
-        lstListas.add(new Lista("Nombre3", "Descripcion"));
-        lstListas.add(new Lista("Nombre4", "Descripcion"));
-        lstListas.add(new Lista("Nombre5", "Descripcion"));
-        lstListas.add(new Lista("Nombre6", "Descripcion"));
+        lstListas = DAO.Lista(this).ObtenerTodo();
         ListaAdapter la = new ListaAdapter(lstListas);
         rvListas.setAdapter(la);
         rvListas.setLayoutManager(
@@ -88,12 +79,7 @@ public class MainActivity extends BaseActivity
         fabAgregarLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                lstListas.add(new Lista("Nombre", "Descripcion"));
-                la.notifyItemInserted(0);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                */
+
                 Intent i = new Intent(MainActivity.this, ListaActivity.class);
                 startActivityForResult(i, RequestCode.ListaActivity);
             }
@@ -153,6 +139,10 @@ public class MainActivity extends BaseActivity
         switch (requestCode)
         {
             case RequestCode.MainActivity: { break; }
+            case RequestCode.ListaActivity: {
+                CargarListas();
+                break;
+            }
             default: { break; }
         }
     }

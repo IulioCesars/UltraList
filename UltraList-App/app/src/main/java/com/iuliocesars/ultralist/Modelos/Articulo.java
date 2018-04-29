@@ -206,4 +206,9 @@ public class Articulo implements Serializable
             }
         return new Result<>(false, null);
     }
+
+    public BigDecimal getTotal ()
+    {
+        return (precio.multiply(new BigDecimal(cantidad)));
+    }
 }

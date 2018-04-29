@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.iuliocesars.ultralist.Modelos.Articulo;
+import com.iuliocesars.ultralist.Util.SuperContentValues;
+import com.iuliocesars.ultralist.Util.SuperCursor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
  * Created by IulioCesars on 22/04/2018.
  */
 
-public class ArticuloDAO extends SQLHelper implements InterfaceDAO<Articulo>{
+public class ArticuloDAO extends BaseDAO<Articulo> {
     private static final String t_articulo = "Articulo";
     private static final String c_id_articulo = "id_articulo";
     private static final String c_fk_lista = "fk_lista";
@@ -39,96 +41,56 @@ public class ArticuloDAO extends SQLHelper implements InterfaceDAO<Articulo>{
     }
 
     @Override
-    public boolean Agregar(Articulo entidad) {
-        ContentValues cValues = ObtenerContentValues(entidad, false);
-
-        SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(t_articulo, null, cValues);
-        db.close();
-
-        return id > 0;
+    protected String ObtenerTabla() {
+        return t_articulo;
     }
 
     @Override
-    public boolean Modificar(Articulo entidad) {
-        ContentValues cValues = ObtenerContentValues(entidad, true);
-
-        String where = String.format("%s = %s", c_id_articulo, entidad.getId_articulo());
-
-        SQLiteDatabase db = getWritableDatabase();
-        long id = db.update(t_articulo, cValues, where , null);
-        db.close();
-
-        return id > 0;
+    protected String ObtenerColumnaID() {
+        return c_id_articulo;
     }
 
     @Override
-    public boolean Eliminar(Articulo entidad) {
+    protected int ObtenerID(Articulo entidad) { return entidad.getId_articulo(); }
 
-        String where = String.format("%s = %s", c_id_articulo, entidad.getId_articulo());
+    @Override
+    protected Articulo ObtenerEntidad(SuperCursor sc) {
+        Articulo articulo = new Articulo();
 
-        SQLiteDatabase db = getWritableDatabase();
-        long id = db.delete(t_articulo, where, null);
-        db.close();
+        articulo.setId_articulo(sc.getInt(c_id_articulo));
+        articulo.setFk_lista(sc.getInt(c_fk_lista));
+        articulo.setNombre(sc.getString(c_nombre));
+        articulo.setDescripcion(sc.getString(c_descripcion));
+        articulo.setCategoria(sc.getString(c_categoria));
+        articulo.setCantidad(sc.getInt(c_cantidad));
+        articulo.setImage_path(sc.getString(c_image_path));
+        articulo.setPrecio(sc.getBigDecimal(c_precio));
 
-        return id > 0;
+        return articulo;
     }
 
     @Override
-    public List<Articulo> ObtenerTodo() {
-        List<Articulo> lstArticulo = new ArrayList<>();
-
-        SQLiteDatabase db = getWritableDatabase();
-
-        String query = String.format("SELECT * FROM %s", t_articulo);
-        Cursor c = db.rawQuery(query, null);
-
-        while(c.moveToNext())
-        {
-            Articulo articulo = ObtenerEntidad(c);
-            lstArticulo.add(articulo);
-        }
-
-        db.close();
-
-        return lstArticulo;
-    }
-
-    @Override
-    public ContentValues ObtenerContentValues(Articulo entidad, boolean modificar) {
-        ContentValues cValues = new ContentValues();
+    protected ContentValues ObtenerContentValues(Articulo entidad, boolean modificar) {
+        SuperContentValues cValues = new SuperContentValues();
 
         cValues.put(c_fk_lista, entidad.getFk_lista());
         cValues.put(c_nombre, entidad.getNombre());
         cValues.put(c_descripcion, entidad.getDescripcion());
         cValues.put(c_categoria, entidad.getCategoria());
         cValues.put(c_cantidad, entidad.getCantidad());
-        cValues.put(c_precio, entidad.getPrecio().doubleValue());
+        cValues.put(c_precio, entidad.getPrecio());
         cValues.put(c_image_path, entidad.getImage_path());
 
-        return cValues;
+        return cValues.getContentValues();
+    }
+
+    public List<Articulo> ObtenerLista(int idLista)
+    {
+        return ObtenerLista(String.format("%s = %s", c_fk_lista, idLista));
     }
 
     @Override
-    public Articulo Obtener(int id) {
-        return null;
-    }
-
-    @Override
-    public Articulo ObtenerEntidad(Cursor c) {
-        Articulo articulo = new Articulo();
-
-        articulo.setId_articulo(c.getInt(c.getColumnIndex(c_id_articulo)));
-        articulo.setFk_lista(c.getInt(c.getColumnIndex(c_fk_lista)));
-        articulo.setNombre(c.getString(c.getColumnIndex(c_nombre)));
-        articulo.setDescripcion(c.getString(c.getColumnIndex(c_descripcion)));
-        articulo.setCategoria(c.getString(c.getColumnIndex(c_categoria)));
-        articulo.setCantidad(c.getInt(c.getColumnIndex(c_cantidad)));
-        articulo.setImage_path(c.getString(c.getColumnIndex(c_image_path)));
-        String precio = c.getString(c.getColumnIndex(c_precio));
-        articulo.setPrecio(new BigDecimal(precio));
-
-
-        return articulo;
+    protected void AsignarID(Articulo entidad, int ID) {
+        entidad.setId_articulo(ID);
     }
 }

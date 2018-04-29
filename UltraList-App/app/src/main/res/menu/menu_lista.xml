@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.iuliocesars.ultralist.Activity.ListaActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/m_guardar"
+        android:title="@string/txtGuardar"
+        android:icon="@android:drawable/ic_menu_save"
+        />
+    <item
+        android:id="@+id/m_eliminar"
+        android:title="@string/txtEliminar"
+        android:icon="@android:drawable/ic_menu_delete"
+        />
 </menu>

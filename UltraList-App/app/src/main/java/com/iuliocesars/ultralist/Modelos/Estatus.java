@@ -6,8 +6,9 @@ package com.iuliocesars.ultralist.Modelos;
 
 public class Estatus
 {
-    public final static int SinCambios = 0;
-    public final static int Agregada = 1;
-    public final static int Modificada = 2;
-    public final static int Eliminada = 3;
+    public final static int SinEstado = 0;
+    public final static int SinCambios = 1;
+    public final static int Agregada = 2;
+    public final static int Modificada = 3;
+    public final static int Eliminada = 4;
 }

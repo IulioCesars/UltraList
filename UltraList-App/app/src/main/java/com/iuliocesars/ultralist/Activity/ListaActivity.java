@@ -3,20 +3,21 @@ package com.iuliocesars.ultralist.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.iuliocesars.ultralist.Adaptadores.ArticuloAdapter;
-import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
-import com.iuliocesars.ultralist.DAO.ArticuloDAO;
+import com.iuliocesars.ultralist.DAO.DAO;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.R;
@@ -24,7 +25,6 @@ import com.iuliocesars.ultralist.Util.Extras;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListaActivity extends BaseActivity{
@@ -55,11 +55,44 @@ public class ListaActivity extends BaseActivity{
         etNombreLista = findViewById(R.id.etNombreLista);
         tvTotal = findViewById(R.id.tvTotal);
 
+
+
         setSupportActionBar(toolbar);
-        CargarArticulo();
     }
 
-    private void CargarArticulo()
+    @Override
+    protected void IniciarEventos() {
+        super.IniciarEventos();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ListaActivity.this, ArticuloScrollingActivity.class);
+                i.putExtra(Extras.fk_Lista, lista.getId_lista());
+                startActivityForResult(i, RequestCode.ArticuloActivity);
+            }
+        });
+
+        etNombreLista.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                lista.setNombre(editable.toString());
+                DAO.Lista(ListaActivity.this).Modificar(lista);
+            }
+        });
+    }
+
+    @Override
+    protected void CargarRegistro()
     {
         Intent i = getIntent();
         if (i.hasExtra(Extras.Lista))
@@ -69,7 +102,7 @@ public class ListaActivity extends BaseActivity{
         else
         {
             lista = new Lista("Nueva Lista", "");
-            lstArticulos = new ArrayList<>();
+            DAO.Lista(this).Agregar(lista);
         }
 
         etNombreLista.setText(lista.getNombre());
@@ -81,26 +114,20 @@ public class ListaActivity extends BaseActivity{
 
     private void CargarArticulos()
     {
-        lstArticulos = new ArticuloDAO(this).ObtenerTodo();
+        lstArticulos = DAO.Articulo(this).ObtenerLista(lista.getId_lista()); //new ArticuloDAO(this).ObtenerTodo();
 
         ArticuloAdapter aa = new ArticuloAdapter(lstArticulos);
         rvArticulos.setAdapter(aa);
         rvArticulos.setLayoutManager(
                 new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rvArticulos.setItemAnimator(new DefaultItemAnimator());
-    }
 
-    @Override
-    protected void IniciarEventos() {
-        super.IniciarEventos();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ListaActivity.this, ArticuloScrollingActivity.class);
-                i.putExtra(Extras.fk_Lista, 0);
-                startActivityForResult(i, RequestCode.ArticuloActivity);
-            }
-        });
+        BigDecimal total = new BigDecimal(0);
+
+        for ( Articulo a : lstArticulos)
+        { total = total.add(a.getTotal()); }
+
+        tvTotal.setText(String.format("Total: %s", total.toString()));
     }
 
     @Override
@@ -119,5 +146,12 @@ public class ListaActivity extends BaseActivity{
 
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_lista, menu);
+        return true;
     }
 }

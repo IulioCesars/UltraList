@@ -30,4 +30,7 @@
     <array name="arrCategorias">
         <item>Ninguna</item>
     </array>
+    <string name="txtEliminar">Eliminar</string>
+    <string name="txtEliminarRegistro">Desea eliminar el registro seleccionado?</string>
+    <string name="txtGuardar">Guardar</string>
 </resources>

@@ -67,3 +67,7 @@ C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Debug\wsUltraList.csproj.Core
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Debug\wsUltraList.csproj.CopyComplete
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Debug\wsUltraList.dll
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Debug\wsUltraList.pdb
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.SqlServer.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.xml
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.SqlServer.xml

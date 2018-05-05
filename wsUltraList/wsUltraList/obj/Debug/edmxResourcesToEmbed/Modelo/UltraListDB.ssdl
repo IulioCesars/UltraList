@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Modelo.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="id_articulo" />
+    </Key>
+    <Property Name="id_articulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fk_lista" Type="int" />
+    <Property Name="nombre" Type="varchar" MaxLength="150" />
+    <Property Name="descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="categoria" Type="varchar" MaxLength="100" />
+    <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="comprado" Type="bit" />
+    <Property Name="es_oferta" Type="bit" />
+    <Property Name="usuario_agrego" Type="int" />
+    <Property Name="fecha_agrego" Type="datetime" />
+    <Property Name="usuario_modifico" Type="int" />
+    <Property Name="fecha_modifico" Type="datetime" />
+    <Property Name="estatus" Type="int" />
+    <Property Name="image_path" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Lista">
+    <Key>
+      <PropertyRef Name="id_lista" />
+    </Key>
+    <Property Name="id_lista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="150" />
+    <Property Name="descripcion" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="privacidad" Type="int" />
+    <Property Name="usuario_agrego" Type="int" />
+    <Property Name="fecha_agrego" Type="datetime" />
+    <Property Name="usuario_modifico" Type="int" />
+    <Property Name="fecha_modifico" Type="datetime" />
+    <Property Name="estatus" Type="int" />
+  </EntityType>
+  <Association Name="FK_Articulo_Lista">
+    <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lista">
+        <PropertyRef Name="id_lista" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="fk_lista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModeloStoreContainer">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lista" EntityType="Self.Lista" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
+      <End Role="Lista" EntitySet="Lista" />
+      <End Role="Articulo" EntitySet="Articulo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

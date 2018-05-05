@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="id_articulo" />
+    </Key>
+    <Property Name="id_articulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_lista" Type="Int32" />
+    <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="comprado" Type="Boolean" />
+    <Property Name="es_oferta" Type="Boolean" />
+    <Property Name="usuario_agrego" Type="Int32" />
+    <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
+    <Property Name="usuario_modifico" Type="Int32" />
+    <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
+    <Property Name="estatus" Type="Int32" />
+    <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Lista" Relationship="Self.FK_Articulo_Lista" FromRole="Articulo" ToRole="Lista" />
+  </EntityType>
+  <EntityType Name="Lista">
+    <Key>
+      <PropertyRef Name="id_lista" />
+    </Key>
+    <Property Name="id_lista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="privacidad" Type="Int32" />
+    <Property Name="usuario_agrego" Type="Int32" />
+    <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
+    <Property Name="usuario_modifico" Type="Int32" />
+    <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
+    <Property Name="estatus" Type="Int32" />
+    <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Lista" FromRole="Lista" ToRole="Articulo" />
+  </EntityType>
+  <Association Name="FK_Articulo_Lista">
+    <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lista">
+        <PropertyRef Name="id_lista" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="fk_lista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UltraList" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+    <EntitySet Name="Lista" EntityType="Self.Lista" />
+    <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
+      <End Role="Lista" EntitySet="Lista" />
+      <End Role="Articulo" EntitySet="Articulo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

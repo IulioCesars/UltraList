@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Modelo.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="id_articulo" />
+          </Key>
+          <Property Name="id_articulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_lista" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" />
+          <Property Name="descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="categoria" Type="varchar" MaxLength="100" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="comprado" Type="bit" />
+          <Property Name="es_oferta" Type="bit" />
+          <Property Name="usuario_agrego" Type="int" />
+          <Property Name="fecha_agrego" Type="datetime" />
+          <Property Name="usuario_modifico" Type="int" />
+          <Property Name="fecha_modifico" Type="datetime" />
+          <Property Name="estatus" Type="int" />
+          <Property Name="image_path" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Lista">
+          <Key>
+            <PropertyRef Name="id_lista" />
+          </Key>
+          <Property Name="id_lista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" />
+          <Property Name="descripcion" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="privacidad" Type="int" />
+          <Property Name="usuario_agrego" Type="int" />
+          <Property Name="fecha_agrego" Type="datetime" />
+          <Property Name="usuario_modifico" Type="int" />
+          <Property Name="fecha_modifico" Type="datetime" />
+          <Property Name="estatus" Type="int" />
+        </EntityType>
+        <Association Name="FK_Articulo_Lista">
+          <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lista">
+              <PropertyRef Name="id_lista" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="fk_lista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModeloStoreContainer">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lista" EntityType="Self.Lista" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
+            <End Role="Lista" EntitySet="Lista" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="id_articulo" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_lista" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="comprado" Type="Boolean" />
+          <Property Name="es_oferta" Type="Boolean" />
+          <Property Name="usuario_agrego" Type="Int32" />
+          <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modifico" Type="Int32" />
+          <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
+          <Property Name="estatus" Type="Int32" />
+          <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lista" Relationship="Self.FK_Articulo_Lista" FromRole="Articulo" ToRole="Lista" />
+        </EntityType>
+        <EntityType Name="Lista">
+          <Key>
+            <PropertyRef Name="id_lista" />
+          </Key>
+          <Property Name="id_lista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="privacidad" Type="Int32" />
+          <Property Name="usuario_agrego" Type="Int32" />
+          <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modifico" Type="Int32" />
+          <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Lista" FromRole="Lista" ToRole="Articulo" />
+        </EntityType>
+        <Association Name="FK_Articulo_Lista">
+          <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lista">
+              <PropertyRef Name="id_lista" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="fk_lista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UltraList" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+          <EntitySet Name="Lista" EntityType="Self.Lista" />
+          <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
+            <End Role="Lista" EntitySet="Lista" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="UltraList">
+          <EntitySetMapping Name="Articulo">
+            <EntityTypeMapping TypeName="Modelo.Articulo">
+              <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="fk_lista" ColumnName="fk_lista" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="comprado" ColumnName="comprado" />
+                <ScalarProperty Name="es_oferta" ColumnName="es_oferta" />
+                <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
+                <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
+                <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
+                <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lista">
+            <EntityTypeMapping TypeName="Modelo.Lista">
+              <MappingFragment StoreEntitySet="Lista">
+                <ScalarProperty Name="id_lista" ColumnName="id_lista" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="privacidad" ColumnName="privacidad" />
+                <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
+                <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
+                <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
+                <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

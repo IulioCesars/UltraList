@@ -27,6 +27,9 @@
     <string name="txtValidacionValorMinimo">El valor no puede ser menor a</string>
     <string name="txtValidacionValorMaximo">El valor no puede ser mayor a</string>
 
+    <string name="facebook_app_id">1853370148083382</string>
+    <string name="fb_login_protocol_scheme">fb1853370148083382</string>
+
     <array name="arrCategorias">
         <item>Ninguna</item>
     </array>

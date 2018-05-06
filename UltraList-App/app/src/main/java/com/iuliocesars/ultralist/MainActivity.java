@@ -3,6 +3,9 @@ package com.iuliocesars.ultralist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +17,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.DAO.DAO;
+import com.iuliocesars.ultralist.Fragmentos.MainFragment;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
@@ -27,9 +32,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FloatingActionButton fabAgregarLista;
-    RecyclerView rvListas;
-    List<Lista> lstListas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +45,10 @@ public class MainActivity extends BaseActivity
     @Override
     protected void IniciarViews()
     {
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        fabAgregarLista = (FloatingActionButton) findViewById(R.id.fab);
-        rvListas = findViewById(R.id.rvListas);
-        rvListas.setHasFixedSize(true);
 
         setSupportActionBar(toolbar);
 
@@ -60,30 +60,7 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        CargarListas();
-    }
-
-    private void CargarListas()
-    {
-        lstListas = DAO.Lista(this).ObtenerTodo();
-        ListaAdapter la = new ListaAdapter(lstListas);
-        rvListas.setAdapter(la);
-        rvListas.setLayoutManager(
-                new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rvListas.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    @Override
-    protected void IniciarEventos()
-    {
-        fabAgregarLista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(MainActivity.this, ListaActivity.class);
-                startActivityForResult(i, RequestCode.ListaActivity);
-            }
-        });
+        changeFragment(new MainFragment(), RequestCode.MainFragment);
     }
 
     @Override
@@ -138,12 +115,23 @@ public class MainActivity extends BaseActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode)
         {
-            case RequestCode.MainActivity: { break; }
-            case RequestCode.ListaActivity: {
-                CargarListas();
-                break;
-            }
             default: { break; }
         }
+    }
+
+    private void changeFragment(Fragment newFragment, int tag) { changeFragment(newFragment, Integer.toString(tag));}
+
+    private void changeFragment(Fragment newFragment, String tag) {
+        FragmentManager fm = getSupportFragmentManager();
+
+        Fragment fragmentActual = fm.findFragmentByTag(tag);
+        if(fragmentActual != null && fragmentActual.isVisible())
+            return;
+
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.replace(R.id.mainFragmentContainer, newFragment, tag);
+
+        ft.commit();
     }
 }

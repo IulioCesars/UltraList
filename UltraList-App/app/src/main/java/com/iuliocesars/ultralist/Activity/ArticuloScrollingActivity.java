@@ -155,7 +155,7 @@ public class ArticuloScrollingActivity extends BaseActivity {
 
     private Articulo ObtenerArticulo()
     {
-        articulo.setFk_lista(0);
+        //articulo.setFk_lista(0);
         articulo.setNombre(etNombre.getText().toString());
         articulo.setDescripcion(etDescripcion.getText().toString());
         articulo.setCategoria(spCategoria.getSelectedItem().toString());

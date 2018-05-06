@@ -10,4 +10,5 @@ public class RequestCode
     public static final int ListaActivity  = 1001;
     public static final int ArticuloActivity  = 1002;
     public static final int LoginActivity  = 1003;
+    public static final int MainFragment = 1004;
 }

@@ -31,16 +31,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         callbackManager = CallbackManager.Factory.create();
-
         btnOmitir = (Button) findViewById(R.id.btnOmitir);
 
         btnOmitir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                startActivityForResult(i, RequestCode.MainActivity);
+                IniciarApp();
             }
         });
 
@@ -61,6 +58,14 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        IniciarApp();
+    }
+
+    protected void IniciarApp()
+    {
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivityForResult(i, RequestCode.MainActivity);
     }
 
 

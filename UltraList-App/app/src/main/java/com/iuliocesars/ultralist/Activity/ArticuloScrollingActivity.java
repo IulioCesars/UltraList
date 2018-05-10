@@ -47,6 +47,9 @@ public class ArticuloScrollingActivity extends BaseActivity {
     protected int DefinirLayout() { return R.layout.activity_acticulo_scrolling; }
 
     @Override
+    protected int DefinirMenu() { return R.menu.menu_acticulo_scrolling; }
+
+    @Override
     protected void IniciarViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -185,4 +188,6 @@ public class ArticuloScrollingActivity extends BaseActivity {
             }
         }
     }
+
+
 }

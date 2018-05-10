@@ -48,6 +48,9 @@ public class ListaActivity extends BaseActivity{
     }
 
     @Override
+    protected int DefinirMenu() { return R.menu.menu_lista; }
+
+    @Override
     protected void IniciarViews() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,7 +146,6 @@ public class ListaActivity extends BaseActivity{
                 }
 
         }
-
 
         super.onActivityResult(requestCode, resultCode, data);
     }

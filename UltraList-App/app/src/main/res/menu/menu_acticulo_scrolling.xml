@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/m_compartirOferta"
+        android:title="@string/txtCompartirOferta"
+        android:icon="@android:drawable/ic_menu_share"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/m_eliminar_articulo"
+        android:title="@string/txtEliminar"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="ifRoom"
+        />
+
 </menu>

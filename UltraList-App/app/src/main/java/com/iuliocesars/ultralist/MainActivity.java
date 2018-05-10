@@ -24,6 +24,9 @@ import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.DAO.DAO;
 import com.iuliocesars.ultralist.Fragmentos.MainFragment;
+import com.iuliocesars.ultralist.Fragmentos.MapaOfertasFragment;
+import com.iuliocesars.ultralist.Fragmentos.OfertasFragment;
+import com.iuliocesars.ultralist.Interfaces.IFragment;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
@@ -31,6 +34,8 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    IFragment fragmentoActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,7 @@ public class MainActivity extends BaseActivity
 
         switch (id)
         {
+
             default: { break; }
         }
 
@@ -103,6 +109,8 @@ public class MainActivity extends BaseActivity
 
         switch (id)
         {
+            case R.id.nav_listas : { changeFragment(new MainFragment(), RequestCode.MainFragment); break;}
+            case R.id.nav_ofertas : {changeFragment(new MapaOfertasFragment(), RequestCode.MapaOfertasFragment); break;}
             default: { break; }
         }
 
@@ -113,24 +121,23 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
-            default: { break; }
-        }
+        if(fragmentoActual!=null)
+        { fragmentoActual.onActivityResult(requestCode, resultCode, data); }
     }
 
-    private void changeFragment(Fragment newFragment, int tag) { changeFragment(newFragment, Integer.toString(tag));}
+    private void changeFragment(IFragment newFragment, int tag) { changeFragment(newFragment, Integer.toString(tag));}
 
-    private void changeFragment(Fragment newFragment, String tag) {
+    private void changeFragment(IFragment newFragment, String tag) {
         FragmentManager fm = getSupportFragmentManager();
 
-        Fragment fragmentActual = fm.findFragmentByTag(tag);
-        if(fragmentActual != null && fragmentActual.isVisible())
+        fragmentoActual = (IFragment) fm.findFragmentByTag(tag);
+        if(fragmentoActual != null && ((Fragment)fragmentoActual).isVisible())
             return;
+        else
+            fragmentoActual = newFragment;
 
         FragmentTransaction ft = fm.beginTransaction();
-
-        ft.replace(R.id.mainFragmentContainer, newFragment, tag);
+        ft.replace(R.id.mainFragmentContainer,(Fragment)fragmentoActual, tag);
 
         ft.commit();
     }

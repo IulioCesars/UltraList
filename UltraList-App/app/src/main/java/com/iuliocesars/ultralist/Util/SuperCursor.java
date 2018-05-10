@@ -68,4 +68,13 @@ public class SuperCursor
         else
             return null;
     }
+
+    public boolean getBool(String columnName)
+    {
+        int column = c.getColumnIndex(columnName);
+        if(!c.isNull(column))
+            return c.getInt(column) == 1;
+        else
+            return false;
+    }
 }

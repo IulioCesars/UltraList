@@ -65,6 +65,7 @@ public class ArticuloDAO extends BaseDAO<Articulo> {
         articulo.setCantidad(sc.getInt(c_cantidad));
         articulo.setImage_path(sc.getString(c_image_path));
         articulo.setPrecio(sc.getBigDecimal(c_precio));
+        articulo.setEs_oferta(sc.getBool(c_es_oferta));
 
         return articulo;
     }
@@ -80,6 +81,7 @@ public class ArticuloDAO extends BaseDAO<Articulo> {
         cValues.put(c_cantidad, entidad.getCantidad());
         cValues.put(c_precio, entidad.getPrecio());
         cValues.put(c_image_path, entidad.getImage_path());
+        cValues.put(c_es_oferta, entidad.isEs_oferta());
 
         return cValues.getContentValues();
     }
@@ -87,6 +89,11 @@ public class ArticuloDAO extends BaseDAO<Articulo> {
     public List<Articulo> ObtenerLista(int idLista)
     {
         return ObtenerLista(String.format("%s = %s", c_fk_lista, idLista));
+    }
+
+    public List<Articulo> ObtenerOfertas()
+    {
+        return ObtenerLista(String.format("%s = %s", c_es_oferta, 1));
     }
 
     @Override

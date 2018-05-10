@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.DAO.DAO;
+import com.iuliocesars.ultralist.Interfaces.IFragment;
 import com.iuliocesars.ultralist.MainActivity;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.R;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by IulioCesars on 06/05/2018.
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements IFragment{
 
     FloatingActionButton fabAgregarLista;
     RecyclerView rvListas;
@@ -72,10 +73,11 @@ public class MainFragment extends Fragment {
         {
             case RequestCode.MainActivity: { break; }
             case RequestCode.ListaActivity: {
-                CargarListas();
+
                 break;
             }
             default: { break; }
         }
+        CargarListas();
     }
 }

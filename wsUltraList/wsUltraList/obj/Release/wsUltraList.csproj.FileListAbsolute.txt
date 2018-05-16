@@ -66,3 +66,11 @@ C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Release\wsUltraList.csproj.Co
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Release\wsUltraList.csproj.CopyComplete
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Release\wsUltraList.dll
 C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Release\wsUltraList.pdb
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.SqlServer.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\System.Web.Cors.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\System.Web.Http.Cors.dll
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.xml
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\EntityFramework.SqlServer.xml
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\bin\System.Web.Http.Cors.xml
+C:\GitKraken\UltraList\wsUltraList\wsUltraList\obj\Release\wsUltraList.csprojResolveAssemblyReference.cache

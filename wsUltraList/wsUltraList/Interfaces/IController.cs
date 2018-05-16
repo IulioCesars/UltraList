@@ -9,9 +9,9 @@ namespace wsUltraList.Interfaces
 {
     interface IController<T>
     {
-        Result Agregar(T entidad);
-        Result Editar(T entidad);
-        Result Eliminar(int id);
+        Result<bool> Agregar(T entidad);
+        Result<bool> Editar(T entidad);
+        Result<bool> Eliminar(int id);
         Result<List<T>> ObtenerLista();
         Result<List<T>> Buscar(T entidad);
     }

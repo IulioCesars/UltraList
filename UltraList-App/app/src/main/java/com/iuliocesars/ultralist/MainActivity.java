@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity
         switch (id)
         {
             case R.id.nav_listas : { changeFragment(new MainFragment(), RequestCode.MainFragment); break;}
-            case R.id.nav_ofertas : {changeFragment(new MapaOfertasFragment(), RequestCode.MapaOfertasFragment); break;}
+            case R.id.nav_ofertas : {changeFragment(new OfertasFragment(), RequestCode.OfertasFragment); break;}
             default: { break; }
         }
 

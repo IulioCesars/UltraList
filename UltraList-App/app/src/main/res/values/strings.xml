@@ -40,4 +40,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtCompartirOferta">Compartir como oferta</string>
+    <string name="txtGuardando">Guardando</string>
+    <string name="txtPorFavorEspere">Por Favor Espere</string>
+    <string name="txtSi">Si</string>
+    <string name="txtNo">No</string>
 </resources>

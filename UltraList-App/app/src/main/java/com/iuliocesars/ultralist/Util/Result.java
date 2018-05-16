@@ -5,35 +5,45 @@ package com.iuliocesars.ultralist.Util;
  */
 
 public class Result<T> {
-    private Boolean success;
-    private T value;
+    private Boolean exito;
+    private T valor;
+    private String mensaje;
 
-    public Result(Boolean success, T value) {
-        success = success;
-        this.value = value;
+    public Result(Boolean exito, T valor) {
+        this.exito = exito;
+        this.valor = valor;
     }
 
-    public Result(Boolean success) {
-        success = success;
-        this.value = null;
+    public Result(Boolean exito, T valor, String mensaje) {
+        this.exito = exito;
+        this.valor = valor;
+        this.mensaje = mensaje;
     }
 
-    public Result() {
+    public Result()
+    {}
+
+    public Boolean getExito() {
+        return exito;
     }
 
-    public Boolean getSuccess() {
-        return success;
+    public void setExito(Boolean exito) {
+        this.exito = exito;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public T getValor() {
+        return valor;
     }
 
-    public T getValue() {
-        return value;
+    public void setValor(T valor) {
+        this.valor = valor;
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 }

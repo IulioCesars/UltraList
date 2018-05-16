@@ -76,13 +76,26 @@ namespace wsUltraList.Modelo
             { throw; }
         }
 
-        public static T Buscar(Func<T, bool> pred)
+        public static T Obtener(Func<T, bool> pred)
         {
             try
             {
                 using (var ctx = Contexto.Crear())
                 {
                     return ctx.Set<T>().Where(pred).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            { throw; }
+        }
+
+        public static bool Existe(Func<T, bool> pred)
+        {
+            try
+            {
+                using (var ctx = Contexto.Crear())
+                {
+                    return ctx.Set<T>().Any(pred);
                 }
             }
             catch (Exception)

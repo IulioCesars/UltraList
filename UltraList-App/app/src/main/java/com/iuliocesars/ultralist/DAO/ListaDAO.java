@@ -4,9 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.Util.SuperContentValues;
 import com.iuliocesars.ultralist.Util.SuperCursor;
+
+import java.util.List;
 
 /**
  * Created by IulioCesars on 29/04/2018.
@@ -83,5 +86,17 @@ public class ListaDAO extends BaseDAO<Lista>
     @Override
     protected void AsignarID(Lista entidad, int ID) {
         entidad.setId_lista(ID);
+    }
+
+    @Override
+    public boolean Eliminar(Lista entidad) {
+        List<Articulo> lstArticulo = DAO.Articulo(ctx).ObtenerLista(entidad.getId_lista());
+
+        for (Articulo a : lstArticulo)
+        {
+            DAO.Articulo(ctx).Eliminar(a);
+        }
+
+        return super.Eliminar(entidad);
     }
 }

@@ -2,6 +2,8 @@ package com.iuliocesars.ultralist.Adaptadores;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
+import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -35,9 +39,11 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
         Articulo articulo;
         TextView tvNombre, tvCategoria, tvCantidad, tvPrecioUnitario, tvTotal;
         ImageView ivFoto;
+        View view;
 
         public ArticuloViewHolder(View itemView) {
             super(itemView);
+            view =itemView;
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvCategoria = itemView.findViewById(R.id.tvCategoria);
             tvCantidad = itemView.findViewById(R.id.tvCantidad);
@@ -67,7 +73,20 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
                     itemView.getResources().getString(R.string.txtPrecioTotal) + " " +
                     (articulo.getPrecio().multiply(new BigDecimal(articulo.getCantidad()))).toString()
             );
-            
+
+            if(articulo.getImage_path() != null && !articulo.getImage_path().isEmpty())
+            {
+                try
+                {
+                    FileInputStream fis =  view.getContext().openFileInput(articulo.getImage_path());
+                    Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                    ivFoto.setImageBitmap(bitmap);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+
             this.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

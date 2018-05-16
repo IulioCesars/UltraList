@@ -24,7 +24,7 @@ public class Articulo implements Serializable
     private String nombre;
     private String descripcion;
     private String categoria;
-    private Bitmap foto;
+    //private Bitmap foto;
     private BigDecimal precio;
     private int cantidad;
     private boolean comprado;
@@ -36,6 +36,7 @@ public class Articulo implements Serializable
     private Timestamp fecha_modifico;
     private int estatus;
     private String image_path;
+    private int id_oferta;
 
     public Articulo(int id_articulo, int fk_lista, String nombre, String descripcion, String categoria, Bitmap foto, BigDecimal precio, int cantidad, boolean comprado, boolean es_oferta, int usuario_agrego, Timestamp fecha_agrego, int usuario_modifico, Timestamp fecha_modifico, int estatus) {
         this.id_articulo = id_articulo;
@@ -43,7 +44,7 @@ public class Articulo implements Serializable
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.foto = foto;
+        //this.foto = foto;
         this.precio = precio;
         this.cantidad = cantidad;
         this.comprado = comprado;
@@ -104,6 +105,7 @@ public class Articulo implements Serializable
         this.categoria = categoria;
     }
 
+    /*
     public Bitmap getFoto() {
         return foto;
     }
@@ -111,7 +113,7 @@ public class Articulo implements Serializable
     public void setFoto(Bitmap foto) {
         this.foto = foto;
     }
-
+*/
     public BigDecimal getPrecio() {
         return precio;
     }
@@ -210,5 +212,13 @@ public class Articulo implements Serializable
     public BigDecimal getTotal ()
     {
         return (precio.multiply(new BigDecimal(cantidad)));
+    }
+
+    public int getId_oferta() {
+        return id_oferta;
+    }
+
+    public void setId_oferta(int id_oferta) {
+        this.id_oferta = id_oferta;
     }
 }

@@ -1,8 +1,10 @@
 package com.iuliocesars.ultralist.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +13,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Adaptadores.ArticuloAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
@@ -22,6 +26,7 @@ import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Lista;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.Mensajes;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
 import java.math.BigDecimal;
@@ -141,12 +146,12 @@ public class ListaActivity extends BaseActivity{
             case RequestCode.ArticuloActivity:
                 {
                     if(resultCode == RESULT_OK)
-                    { CargarArticulos(); }
+                    { }
                     break;
                 }
 
         }
-
+        CargarArticulos();
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -155,5 +160,26 @@ public class ListaActivity extends BaseActivity{
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_lista, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.m_eliminar: { EliminarRegistro(); break; }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void EliminarRegistro()
+    {
+        Mensajes.Confirmar(this, R.string.txtEliminarRegistro, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(DAO.Lista(ListaActivity.this).Eliminar(lista))
+                    finish();
+            }
+        });
     }
 }

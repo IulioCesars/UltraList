@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using wsUltraList.Interfaces;
@@ -9,26 +10,26 @@ using wsUltraList.Utils;
 
 namespace wsUltraList.Controllers
 {
-    public abstract class GenericController<T> : ApiController, IController<T>
+    public abstract class GenericController<T> : ApiController
         where T : Entidad<T>
     {
         protected abstract Func<T, bool> BuscarID(int id);
         protected abstract Func<T, bool> BuscarEntidad(T entidad);
 
-        [HttpGet]
-        public virtual String Prueba() { return "Hola Mundo"; }
+        [HttpPost]
+        public virtual Result<String> Prueba() { Thread.Sleep(1000); return new Result<string>(true,"Hola Mundo"); }
 
 
         [HttpPost]
-        public virtual Result Agregar(T entidad)
+        public virtual Result<bool> Agregar(T entidad)
         {
             try
             {
                 var resultado = Entidad<T>.Agregar(entidad);
-                return new Result(resultado);
+                return new Result<bool>(resultado, true);
             }
             catch (Exception ex)
-            { return new Result(ex); }
+            { return new Result<bool>(ex); }
         }
 
         [HttpPost]
@@ -44,40 +45,40 @@ namespace wsUltraList.Controllers
         }
 
         [HttpPost]
-        public virtual Result Editar(T entidad)
+        public virtual Result<bool> Editar(T entidad)
         {
             try
             {
                 var resultado = Entidad<T>.Editar(entidad);
-                return new Result(resultado);
+                return new Result<bool>(resultado, true);
             }
             catch (Exception ex)
-            { return new Result(ex); }
+            { return new Result<bool>(ex); }
         }
 
         [HttpPost]
-        public virtual Result Eliminar(int id)
+        public virtual Result<bool> Eliminar(int id)
         {
             try
             {
-                T entidad = Entidad<T>.Buscar(BuscarID(id));
+                T entidad = Entidad<T>.Obtener(BuscarID(id));
                 bool resultado = Entidad<T>.Eliminar(entidad);
-                return new Result(resultado);
+                return new Result<bool>(resultado, true);
             }
             catch (Exception ex)
-            { return new Result(ex); }
+            { return new Result<bool>(ex); }
         }
 
         [HttpPost]
-        public virtual Result<List<T>> ObtenerLista()
+        public virtual List<T> ObtenerLista()
         {
             try
             {
                 var resultado = Entidad<T>.ObtenerLista();
-                return new Result<List<T>>(true, resultado);
+                return resultado;
             }
             catch (Exception ex)
-            { return new Result<List<T>>(ex); }
+            { return null; }
         }
 
     }

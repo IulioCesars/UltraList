@@ -25,22 +25,4 @@ namespace wsUltraList.Utils
             this.mensaje = ex.GetBaseException().Message;
         }
     }
-
-    public class Result
-    {
-        public String mensaje { get; set; }
-        public bool exito { get; set; }
-
-        public Result(bool exito, string mensaje = null)
-        {
-            this.exito = exito;
-            this.mensaje = mensaje;
-        }
-
-        public Result(Exception ex)
-        {
-            this.exito = false;
-            this.mensaje = ex.GetBaseException().Message;
-        }
-    }
 }

@@ -1,15 +1,20 @@
 package com.iuliocesars.ultralist.Activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,13 +24,20 @@ import android.widget.Toast;
 import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.Controles.Contador;
 import com.iuliocesars.ultralist.DAO.ArticuloDAO;
+import com.iuliocesars.ultralist.DAO.DAO;
 import com.iuliocesars.ultralist.Modelos.Articulo;
+import com.iuliocesars.ultralist.Modelos.Oferta;
+import com.iuliocesars.ultralist.NET.INetAction;
+import com.iuliocesars.ultralist.NET.Net;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.Mensajes;
 import com.iuliocesars.ultralist.Util.Result;
+import com.squareup.picasso.Picasso;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class ArticuloScrollingActivity extends BaseActivity {
@@ -75,7 +87,7 @@ public class ArticuloScrollingActivity extends BaseActivity {
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GuardarRegistro();
+                GuardarRegistro(false);
             }
         });
     }
@@ -104,6 +116,8 @@ public class ArticuloScrollingActivity extends BaseActivity {
             {
                 try
                 {
+
+                    //Picasso.get().load(articulo.getImage_path()).into(ivFotoArticulo);
                     FileInputStream fis = openFileInput(articulo.getImage_path());
                     Bitmap bitmap = BitmapFactory.decodeStream(fis);
                     ivFotoArticulo.setImageBitmap(bitmap);
@@ -127,16 +141,26 @@ public class ArticuloScrollingActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void GuardarRegistro() {
+    protected void GuardarRegistro(boolean es_oferta) {
         Articulo articulo = ObtenerArticulo();
+        articulo.setEs_oferta(es_oferta);
+
+        if(es_oferta) {
+            Net.Articulo(this).CompartirOferta(articulo, new INetAction<Integer>() {
+                @Override
+                public void Execute(Integer entidad) {
+                    Toast.makeText(ArticuloScrollingActivity.this, "Se compartio como oferta", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         if(!modoEdicion)
         {
             if (new ArticuloDAO(this).Agregar(articulo)) {
+
+
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
-
                 finish();
             } else {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
@@ -155,6 +179,26 @@ public class ArticuloScrollingActivity extends BaseActivity {
         }
     }
 
+    protected void EliminarRegistro()
+    {
+        Mensajes.Confirmar(this, R.string.txtEliminarRegistro, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(DAO.Articulo(ArticuloScrollingActivity.this).Eliminar(articulo))
+                    finish();
+            }
+        });
+    }
+
+    protected void CompartirOferta()
+    {
+        Mensajes.Confirmar(this, R.string.txtCompartirOferta, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                GuardarRegistro(true);
+            }
+        });
+    }
 
     private Articulo ObtenerArticulo()
     {
@@ -190,4 +234,13 @@ public class ArticuloScrollingActivity extends BaseActivity {
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.m_compartirOferta: { CompartirOferta(); break;}
+            case R.id.m_eliminar_articulo: { EliminarRegistro(); break; }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

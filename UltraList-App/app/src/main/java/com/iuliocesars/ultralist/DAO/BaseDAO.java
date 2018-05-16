@@ -17,9 +17,12 @@ import java.util.List;
 
 public abstract class BaseDAO<T> extends SQLHelper
 {
+    protected Context ctx;
 
-    public BaseDAO(Context context) {
+    public BaseDAO(Context context)
+    {
         super(context);
+        ctx = context;
     }
 
     public boolean Agregar(T entidad) {

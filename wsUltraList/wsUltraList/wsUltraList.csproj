@@ -116,6 +116,7 @@
     <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\ListaController.cs" />
+    <Compile Include="Controllers\OfertaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -127,7 +128,11 @@
     <Compile Include="Modelo\Entidades\Base\Entidad.cs" />
     <Compile Include="Modelo\Entidades\Base\IEntidad.cs" />
     <Compile Include="Modelo\Entidades\Lista.cs" />
+    <Compile Include="Modelo\Entidades\Oferta.cs" />
     <Compile Include="Modelo\Lista.cs">
+      <DependentUpon>UltraListDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\Oferta.cs">
       <DependentUpon>UltraListDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Modelo\UltraListDB.Context.cs">

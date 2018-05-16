@@ -4,7 +4,6 @@ package com.iuliocesars.ultralist.Fragmentos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,15 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.iuliocesars.ultralist.Activity.ListaActivity;
-import com.iuliocesars.ultralist.Adaptadores.ArticuloAdapter;
-import com.iuliocesars.ultralist.DAO.DAO;
+import com.iuliocesars.ultralist.Adaptadores.OfertaAdapter;
 import com.iuliocesars.ultralist.Interfaces.IFragment;
-import com.iuliocesars.ultralist.Modelos.Articulo;
+import com.iuliocesars.ultralist.Modelos.Oferta;
+import com.iuliocesars.ultralist.NET.INetAction;
+import com.iuliocesars.ultralist.NET.Net;
 import com.iuliocesars.ultralist.R;
-import com.iuliocesars.ultralist.Util.RequestCode;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,26 +27,31 @@ import java.util.List;
 
 public class OfertasFragment extends Fragment implements IFragment
 {
-    RecyclerView rvArticulos;
-    List<Articulo> lstArticulos;
+    RecyclerView rvOfertas;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View vistaInflada = inflater.inflate(R.layout.fragment_main, container, false);
+        View vistaInflada = inflater.inflate(R.layout.fragment_ofertas, container, false);
 
+        rvOfertas = vistaInflada.findViewById(R.id.rvOfertas);
+
+        CargarLista();
         return vistaInflada;
     }
 
     private void CargarLista()
     {
-        lstArticulos = DAO.Articulo(getActivity()).ObtenerOfertas(); //new ArticuloDAO(this).ObtenerTodo();
-
-        ArticuloAdapter aa = new ArticuloAdapter(lstArticulos);
-        rvArticulos.setAdapter(aa);
-        rvArticulos.setLayoutManager(
-                new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        rvArticulos.setItemAnimator(new DefaultItemAnimator());
+        Net.Oferta(getActivity()).ObtenerLista(new INetAction<List<Oferta>>() {
+            @Override
+            public void Execute(List<Oferta> entidad) {
+                OfertaAdapter oo = new OfertaAdapter(entidad);
+                rvOfertas.setAdapter(oo);
+                rvOfertas.setLayoutManager(
+                        new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+                rvOfertas.setItemAnimator(new DefaultItemAnimator());
+            }
+        });
 
     }
 

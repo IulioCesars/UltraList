@@ -1,5 +1,7 @@
 package com.iuliocesars.ultralist.Adaptadores;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
+import com.iuliocesars.ultralist.Activity.MapsActivity;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Oferta;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.ConexionWS;
+import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.RequestCode;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -49,7 +55,7 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
             tvPrecioUnitario.setVisibility(View.INVISIBLE);
         }
 
-        public void Bind(Oferta o)
+        public void Bind(final Oferta o)
         {
             tvNombre.setText(o.nombre);
 
@@ -72,6 +78,17 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
                     ex.printStackTrace();
                 }
             }
+
+            this.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Activity parentActivity = (Activity) view.getContext();
+
+                    Intent i = new Intent(parentActivity, MapsActivity.class);
+                    i.putExtra(Extras.Oferta, o);
+                    parentActivity.startActivityForResult(i, RequestCode.MapsActivity);
+                }
+            });
         }
 
 

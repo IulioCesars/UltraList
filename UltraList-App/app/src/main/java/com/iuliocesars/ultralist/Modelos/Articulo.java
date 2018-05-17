@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.iuliocesars.ultralist.Util.Result;
 
 import java.io.FileInputStream;
@@ -37,6 +38,19 @@ public class Articulo implements Serializable
     private int estatus;
     private String image_path;
     private int id_oferta;
+    public double lat;
+    public double lng;
+
+    public void SetUbicacion(LatLng ll)
+    {
+        this.lat = ll.latitude;
+        this.lng = ll.longitude;
+    }
+
+    public LatLng GetUbicacion()
+    {
+        return new LatLng(lat, lng);
+    }
 
     public Articulo(int id_articulo, int fk_lista, String nombre, String descripcion, String categoria, Bitmap foto, BigDecimal precio, int cantidad, boolean comprado, boolean es_oferta, int usuario_agrego, Timestamp fecha_agrego, int usuario_modifico, Timestamp fecha_modifico, int estatus) {
         this.id_articulo = id_articulo;
@@ -220,5 +234,21 @@ public class Articulo implements Serializable
 
     public void setId_oferta(int id_oferta) {
         this.id_oferta = id_oferta;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

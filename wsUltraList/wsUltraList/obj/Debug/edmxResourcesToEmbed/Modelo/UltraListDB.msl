@@ -1,27 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="UltraList">
-    <EntitySetMapping Name="Articulo">
-      <EntityTypeMapping TypeName="Modelo.Articulo">
-        <MappingFragment StoreEntitySet="Articulo">
-          <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
-          <ScalarProperty Name="fk_lista" ColumnName="fk_lista" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="categoria" ColumnName="categoria" />
-          <ScalarProperty Name="precio" ColumnName="precio" />
-          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-          <ScalarProperty Name="comprado" ColumnName="comprado" />
-          <ScalarProperty Name="es_oferta" ColumnName="es_oferta" />
-          <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
-          <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
-          <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
-          <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
-          <ScalarProperty Name="estatus" ColumnName="estatus" />
-          <ScalarProperty Name="image_path" ColumnName="image_path" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Lista">
       <EntityTypeMapping TypeName="Modelo.Lista">
         <MappingFragment StoreEntitySet="Lista">
@@ -37,9 +16,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Articulo">
+      <EntityTypeMapping TypeName="Modelo.Articulo">
+        <MappingFragment StoreEntitySet="Articulo">
+          <ScalarProperty Name="lng" ColumnName="lng" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="image_path" ColumnName="image_path" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
+          <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
+          <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
+          <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
+          <ScalarProperty Name="es_oferta" ColumnName="es_oferta" />
+          <ScalarProperty Name="comprado" ColumnName="comprado" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="fk_lista" ColumnName="fk_lista" />
+          <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Oferta">
       <EntityTypeMapping TypeName="Modelo.Oferta">
         <MappingFragment StoreEntitySet="Oferta">
+          <ScalarProperty Name="lng" ColumnName="lng" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
           <ScalarProperty Name="image_path" ColumnName="image_path" />
           <ScalarProperty Name="estatus" ColumnName="estatus" />
           <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />

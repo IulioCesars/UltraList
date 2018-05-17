@@ -19,6 +19,8 @@
     <Property Name="fecha_modifico" Type="datetime" />
     <Property Name="estatus" Type="int" />
     <Property Name="image_path" Type="nvarchar(max)" />
+    <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
+    <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
   </EntityType>
   <EntityType Name="Lista">
     <Key>
@@ -50,6 +52,8 @@
     <Property Name="fecha_modifico" Type="datetime" />
     <Property Name="estatus" Type="int" />
     <Property Name="image_path" Type="nvarchar(max)" />
+    <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
+    <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
   </EntityType>
   <Association Name="FK_Articulo_Lista">
     <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />

@@ -31,7 +31,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Base.BaseFragment;
 import com.iuliocesars.ultralist.Interfaces.IFragment;
+import com.iuliocesars.ultralist.Modelos.Oferta;
 import com.iuliocesars.ultralist.R;
+import com.iuliocesars.ultralist.Util.Extras;
 import com.iuliocesars.ultralist.Util.RequestCode;
 
 import java.util.ArrayList;
@@ -82,13 +84,16 @@ public class MapaOfertasFragment extends BaseFragment implements OnMapReadyCallb
         // Inicializa nuestro objeto LocationManager
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
+
+
+
+        /*
         // Listener para detectar los eventos "Click" dentro del mapa
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             // Este evento nos devuelve la cooordenada geografica donde se dio click dentro del mapa
             @Override
             public void onMapClick(LatLng latLng) {
-                showToast("ASDAS");
                 // Funcion extra que desarrollamos para agregar marcadores al mapa
                 addMarker(
                         "Mi Prueba de Marcador",
@@ -97,7 +102,7 @@ public class MapaOfertasFragment extends BaseFragment implements OnMapReadyCallb
                         true
                 );
             }
-        });
+        });*/
 
         // Si estamos en Android 6.0+ tenemos que pedir permisos en tiempo de ejecucion
         // Si estamos debajo de Android 6.0 solo hace falta pedir permisos desde el AndroidManifest
@@ -148,11 +153,20 @@ public class MapaOfertasFragment extends BaseFragment implements OnMapReadyCallb
             // Utilizamos el metodo que desarrollamos para obtener la ubicacion del usuario
             currentLocation = getCurrentLocation();
 
-            showToast(String.format("Coords: %f %f", currentLocation.latitude, currentLocation.longitude));
+            //showToast(String.format("Coords: %f %f", currentLocation.latitude, currentLocation.longitude));
 
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+
+        Oferta oferta = (Oferta) getActivity().getIntent().getSerializableExtra(Extras.Oferta);
+        if(oferta != null)
+        {
+            LatLng latLng = oferta.GetUbicacion();
+            currentLocation = latLng;
+            addMarker(oferta.nombre, latLng, true, true);
+        }
+
 
         // Si se pudo obtener la ubicacion del usuario
         if (currentLocation != null) { // .. cambiar if

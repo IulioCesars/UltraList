@@ -29,6 +29,8 @@ namespace wsUltraList.Modelo
         public Nullable<System.DateTime> fecha_modifico { get; set; }
         public Nullable<int> estatus { get; set; }
         public string image_path { get; set; }
+        public Nullable<decimal> lat { get; set; }
+        public Nullable<decimal> lng { get; set; }
     
         public virtual Lista Lista { get; set; }
     }

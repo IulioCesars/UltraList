@@ -44,4 +44,5 @@
     <string name="txtPorFavorEspere">Por Favor Espere</string>
     <string name="txtSi">Si</string>
     <string name="txtNo">No</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

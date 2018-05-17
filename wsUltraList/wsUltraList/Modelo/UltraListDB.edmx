@@ -24,6 +24,8 @@
           <Property Name="fecha_modifico" Type="datetime" />
           <Property Name="estatus" Type="int" />
           <Property Name="image_path" Type="nvarchar(max)" />
+          <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
         </EntityType>
         <EntityType Name="Lista">
           <Key>
@@ -55,6 +57,8 @@
           <Property Name="fecha_modifico" Type="datetime" />
           <Property Name="estatus" Type="int" />
           <Property Name="image_path" Type="nvarchar(max)" />
+          <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
         </EntityType>
         <Association Name="FK_Articulo_Lista">
           <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
@@ -81,6 +85,30 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Lista">
+          <Key>
+            <PropertyRef Name="id_lista" />
+          </Key>
+          <Property Name="id_lista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="privacidad" Type="Int32" />
+          <Property Name="usuario_agrego" Type="Int32" />
+          <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modifico" Type="Int32" />
+          <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="Articulo" Relationship="Modelo.FK_Articulo_Lista" FromRole="Lista" ToRole="Articulo" />
+        </EntityType>
+        <EntityContainer Name="UltraList" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lista" EntityType="Self.Lista" />
+          <EntitySet Name="Articulo" EntityType="Modelo.Articulo" />
+          <EntitySet Name="Oferta" EntityType="Modelo.Oferta" />
+          <AssociationSet Name="FK_Articulo_Lista" Association="Modelo.FK_Articulo_Lista">
+            <End Role="Lista" EntitySet="Lista" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="id_articulo" />
@@ -100,44 +128,10 @@
           <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
           <Property Name="estatus" Type="Int32" />
           <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Lista" Relationship="Self.FK_Articulo_Lista" FromRole="Articulo" ToRole="Lista" />
+          <Property Name="lat" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="lng" Type="Decimal" Precision="18" Scale="6" />
+          <NavigationProperty Name="Lista" Relationship="Modelo.FK_Articulo_Lista" FromRole="Articulo" ToRole="Lista" />
         </EntityType>
-        <EntityType Name="Lista">
-          <Key>
-            <PropertyRef Name="id_lista" />
-          </Key>
-          <Property Name="id_lista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="Decimal" Precision="8" Scale="2" />
-          <Property Name="privacidad" Type="Int32" />
-          <Property Name="usuario_agrego" Type="Int32" />
-          <Property Name="fecha_agrego" Type="DateTime" Precision="3" />
-          <Property Name="usuario_modifico" Type="Int32" />
-          <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
-          <Property Name="estatus" Type="Int32" />
-          <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Lista" FromRole="Lista" ToRole="Articulo" />
-        </EntityType>
-        <Association Name="FK_Articulo_Lista">
-          <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
-          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lista">
-              <PropertyRef Name="id_lista" />
-            </Principal>
-            <Dependent Role="Articulo">
-              <PropertyRef Name="fk_lista" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="UltraList" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Articulo" EntityType="Self.Articulo" />
-          <EntitySet Name="Lista" EntityType="Self.Lista" />
-          <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
-            <End Role="Lista" EntitySet="Lista" />
-            <End Role="Articulo" EntitySet="Articulo" />
-          </AssociationSet>
-          <EntitySet Name="Oferta" EntityType="Modelo.Oferta" />
-        </EntityContainer>
         <EntityType Name="Oferta">
           <Key>
             <PropertyRef Name="id_oferta" />
@@ -154,34 +148,27 @@
           <Property Name="fecha_modifico" Type="DateTime" Precision="3" />
           <Property Name="estatus" Type="Int32" />
           <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="lng" Type="Decimal" Precision="18" Scale="6" />
         </EntityType>
+        <Association Name="FK_Articulo_Lista">
+          <End Type="Modelo.Lista" Role="Lista" Multiplicity="0..1" />
+          <End Type="Modelo.Articulo" Role="Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lista">
+              <PropertyRef Name="id_lista" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="fk_lista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="UltraList">
-          <EntitySetMapping Name="Articulo">
-            <EntityTypeMapping TypeName="Modelo.Articulo">
-              <MappingFragment StoreEntitySet="Articulo">
-                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
-                <ScalarProperty Name="fk_lista" ColumnName="fk_lista" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="categoria" ColumnName="categoria" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="comprado" ColumnName="comprado" />
-                <ScalarProperty Name="es_oferta" ColumnName="es_oferta" />
-                <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
-                <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
-                <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
-                <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="image_path" ColumnName="image_path" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Lista">
             <EntityTypeMapping TypeName="Modelo.Lista">
               <MappingFragment StoreEntitySet="Lista">
@@ -197,9 +184,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Articulo">
+            <EntityTypeMapping TypeName="Modelo.Articulo">
+              <MappingFragment StoreEntitySet="Articulo">
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />
+                <ScalarProperty Name="usuario_modifico" ColumnName="usuario_modifico" />
+                <ScalarProperty Name="fecha_agrego" ColumnName="fecha_agrego" />
+                <ScalarProperty Name="usuario_agrego" ColumnName="usuario_agrego" />
+                <ScalarProperty Name="es_oferta" ColumnName="es_oferta" />
+                <ScalarProperty Name="comprado" ColumnName="comprado" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fk_lista" ColumnName="fk_lista" />
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Oferta">
             <EntityTypeMapping TypeName="Modelo.Oferta">
               <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
                 <ScalarProperty Name="image_path" ColumnName="image_path" />
                 <ScalarProperty Name="estatus" ColumnName="estatus" />
                 <ScalarProperty Name="fecha_modifico" ColumnName="fecha_modifico" />

@@ -6,7 +6,7 @@ package com.iuliocesars.ultralist.Util;
 
 public class ConexionWS
 {
-    public static String URL = "http://192.168.0.206:56152";
+    public static String URL = "https://wsultralist.azurewebsites.net"; //"http://192.168.0.206:56152";
     public static String URL_API = URL + "/api";
 
     public static String URL_IMAGENES = URL + "/UploadedFiles/";

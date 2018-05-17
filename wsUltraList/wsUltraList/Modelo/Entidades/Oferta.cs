@@ -22,6 +22,8 @@ namespace wsUltraList.Modelo
             fecha_modifico = articulo.fecha_modifico;
             estatus = articulo.estatus;
             image_path = articulo.image_path;
+            lat = articulo.lat;
+            lng = articulo.lng;
         }
 
     }

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.Controles.Contador;
 import com.iuliocesars.ultralist.DAO.ArticuloDAO;
@@ -31,6 +32,7 @@ import com.iuliocesars.ultralist.NET.INetAction;
 import com.iuliocesars.ultralist.NET.Net;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.Maps;
 import com.iuliocesars.ultralist.Util.Mensajes;
 import com.iuliocesars.ultralist.Util.Result;
 import com.squareup.picasso.Picasso;
@@ -146,6 +148,10 @@ public class ArticuloScrollingActivity extends BaseActivity {
         articulo.setEs_oferta(es_oferta);
 
         if(es_oferta) {
+            LatLng l = Maps.getCurrentLocation(this);
+            if(l != null)
+            { articulo.SetUbicacion(l); }
+
             Net.Articulo(this).CompartirOferta(articulo, new INetAction<Integer>() {
                 @Override
                 public void Execute(Integer entidad) {

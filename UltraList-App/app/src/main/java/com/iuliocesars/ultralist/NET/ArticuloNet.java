@@ -56,7 +56,7 @@ public class ArticuloNet extends BaseNet<Articulo>
     }
 
     public void CompartirOferta(final Articulo articulo, final INetAction<Integer> OnResponse) {
-        MostrarMensajeProgreso(R.string.txtGuardando, R.string.txtPorFavorEspere);
+        //MostrarMensajeProgreso(R.string.txtGuardando, R.string.txtPorFavorEspere);
 
         if(articulo.getFecha_agrego() == null)
             articulo.setFecha_agrego(new Timestamp(System.currentTimeMillis()));
@@ -79,20 +79,20 @@ public class ArticuloNet extends BaseNet<Articulo>
                                 @Override
                                 public void Execute(String entidad) {
                                     OnResponse.Execute(finalResponse.getValor());
-                                    CerrarMenajeProgreso();
+                                    //CerrarMenajeProgreso();
                                 }
                             });
                         }
                         else
                         {
-                            CerrarMenajeProgreso();
+                            //CerrarMenajeProgreso();
                             Toast.makeText(ctx, response.getMensaje(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        CerrarMenajeProgreso();
+                        //CerrarMenajeProgreso();
                         Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
+  <parameter name="UltraList2-Web.config Connection String" description="UltraList2 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Modelo.UltraListDB.csdl|res://*/Modelo.UltraListDB.ssdl|res://*/Modelo.UltraListDB.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(localdb)\MSSQLLocalDB;initial catalog=UltraList;user id=sa;password=J1565970;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\GitKraken\\UltraList\\wsUltraList\\wsUltraList\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='UltraList2']/@connectionString" />
+  </parameter>
   <parameter name="UltraList-Web.config Connection String" description="UltraList Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="metadata=res://*/Modelo.UltraListDB.csdl|res://*/Modelo.UltraListDB.ssdl|res://*/Modelo.UltraListDB.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=tcp:uanlserver.database.windows.net,1433;Initial Catalog=UltraList;User ID=iuliocesars;Password=J1565970c;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\GitKraken\\UltraList\\wsUltraList\\wsUltraList\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='UltraList']/@connectionString" />
   </parameter>

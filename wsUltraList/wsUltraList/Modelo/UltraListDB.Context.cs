@@ -25,8 +25,8 @@ namespace wsUltraList.Modelo
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<Lista> Lista { get; set; }
+        public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<Oferta> Oferta { get; set; }
     }
 }

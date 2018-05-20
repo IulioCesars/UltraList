@@ -9,6 +9,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.google.gson.reflect.TypeToken;
 import com.iuliocesars.ultralist.Modelos.Oferta;
+import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.ConexionWS;
 import com.iuliocesars.ultralist.Util.Result;
 
@@ -24,8 +25,9 @@ public class OfertaNet extends BaseNet<Oferta>
         super(ActiviyContext);
     }
 
-    public void ObtenerLista(final INetAction<List<Oferta>> OnResponse)
+    public void ObtenerLista(final INetResponse<List<Oferta>> OnResponse)
     {
+        MostrarMensajeProgreso(R.string.txtBuscandoOferas, R.string.txtPorFavorEspere);
         AndroidNetworking.post(ObtenerURL(ConexionWS.ObtenerLista))
                 .addHeaders("Content-Type", "application/json")
                 .setPriority(Priority.MEDIUM)
@@ -33,15 +35,20 @@ public class OfertaNet extends BaseNet<Oferta>
                 .getAsObjectList(Oferta.class, new ParsedRequestListener<List<Oferta>>(){
                     @Override
                     public void onResponse(List<Oferta> response) {
-                        if(response != null)
-                        {
-                            OnResponse.Execute(response);
-                        }
+                        if(OnResponse != null)
+                            OnResponse.OnSuccess(response);
+
+                        CerrarMenajeProgreso();
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
+                        if(OnResponse != null)
+                            OnResponse.OnError(anError.getMessage());
+                        else
+                            Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        CerrarMenajeProgreso();
                     }
                 });
 

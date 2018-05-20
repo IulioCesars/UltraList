@@ -11,11 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Adaptadores.OfertaAdapter;
 import com.iuliocesars.ultralist.Interfaces.IFragment;
 import com.iuliocesars.ultralist.Modelos.Oferta;
 import com.iuliocesars.ultralist.NET.INetAction;
+import com.iuliocesars.ultralist.NET.INetResponse;
 import com.iuliocesars.ultralist.NET.Net;
 import com.iuliocesars.ultralist.R;
 
@@ -42,14 +44,21 @@ public class OfertasFragment extends Fragment implements IFragment
 
     private void CargarLista()
     {
-        Net.Oferta(getActivity()).ObtenerLista(new INetAction<List<Oferta>>() {
+
+
+        Net.Oferta(getActivity()).ObtenerLista(new INetResponse<List<Oferta>>() {
             @Override
-            public void Execute(List<Oferta> entidad) {
+            public void OnSuccess(List<Oferta> entidad) {
                 OfertaAdapter oo = new OfertaAdapter(entidad);
                 rvOfertas.setAdapter(oo);
                 rvOfertas.setLayoutManager(
                         new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
                 rvOfertas.setItemAnimator(new DefaultItemAnimator());
+            }
+
+            @Override
+            public void OnError(String msg) {
+                Toast.makeText(OfertasFragment.this.getActivity(), msg, Toast.LENGTH_SHORT).show();
             }
         });
 

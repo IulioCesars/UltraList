@@ -14,6 +14,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +53,8 @@ public class ArticuloScrollingActivity extends BaseActivity {
     ImageView ivFotoArticulo;
     Articulo articulo;
     Boolean modoEdicion;
+    boolean modoOferta;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +93,26 @@ public class ArticuloScrollingActivity extends BaseActivity {
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GuardarRegistro(false);
+                GuardarRegistro(modoOferta);
             }
         });
+        etNombre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                ArticuloScrollingActivity.this.setTitle(editable.toString());
+            }
+        });
+
     }
 
     private void TomarFoto()
@@ -103,6 +124,7 @@ public class ArticuloScrollingActivity extends BaseActivity {
     @Override
     protected void CargarRegistro() {
         Intent i = getIntent();
+        String tituloActivity = getResources().getString(R.string.txtNuevoArticulo);
 
         if(i.hasExtra(Extras.Articulo))
         {
@@ -137,10 +159,27 @@ public class ArticuloScrollingActivity extends BaseActivity {
             articulo.setFk_lista(i.getIntExtra(Extras.fk_Lista, 0));
             modoEdicion = false;
         }
+        else if(i.hasExtra(Extras.Oferta))
+        {
+            contadorPrecioUnitario.setVisibility(false);
+            contadorCantidad.setVisibility(false);
+            findViewById(R.id.tvCantidad).setVisibility(View.INVISIBLE);
+            findViewById(R.id.tvPrecioUnitario).setVisibility(View.INVISIBLE);
+            modoOferta = true;
+
+            articulo = new Articulo();
+            articulo.setFk_lista(-1);
+            modoEdicion = false;
+
+            tituloActivity = getResources().getString(R.string.txtNuevaOferta);
+        }
         else
         {
             finish();
         }
+
+        setTitle(tituloActivity);
+
     }
 
     protected void GuardarRegistro(boolean es_oferta) {
@@ -248,5 +287,10 @@ public class ArticuloScrollingActivity extends BaseActivity {
             case R.id.m_eliminar_articulo: { EliminarRegistro(); break; }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void OnShake() {
+        return;
     }
 }

@@ -50,7 +50,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void IniciarViews()
     {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -137,6 +136,7 @@ public class MainActivity extends BaseActivity
             fragmentoActual = newFragment;
 
         FragmentTransaction ft = fm.beginTransaction();
+        bloquearShake =false;
         ft.replace(R.id.mainFragmentContainer,(Fragment)fragmentoActual, tag);
 
         ft.commit();

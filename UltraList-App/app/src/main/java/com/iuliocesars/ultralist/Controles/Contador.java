@@ -136,4 +136,12 @@ public class Contador {
     public void setValorMaximo(int valorMaximo) {
         this.valorMaximo = valorMaximo;
     }
+
+    public void setVisibility(boolean valor)
+    {
+        int visible = valor ? View.VISIBLE : View.INVISIBLE;
+        btnMas.setVisibility(visible);
+        btnMenos.setVisibility(visible);
+        etValor.setVisibility(visible);
+    }
 }

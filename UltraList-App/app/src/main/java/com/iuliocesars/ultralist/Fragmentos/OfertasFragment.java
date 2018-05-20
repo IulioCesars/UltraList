@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.iuliocesars.ultralist.Adaptadores.OfertaAdapter;
 import com.iuliocesars.ultralist.Interfaces.IFragment;
+import com.iuliocesars.ultralist.MainActivity;
 import com.iuliocesars.ultralist.Modelos.Oferta;
 import com.iuliocesars.ultralist.NET.INetAction;
 import com.iuliocesars.ultralist.NET.INetResponse;
@@ -44,7 +45,7 @@ public class OfertasFragment extends Fragment implements IFragment
 
     private void CargarLista()
     {
-
+        setBloquearShake(true);
 
         Net.Oferta(getActivity()).ObtenerLista(new INetResponse<List<Oferta>>() {
             @Override
@@ -54,11 +55,13 @@ public class OfertasFragment extends Fragment implements IFragment
                 rvOfertas.setLayoutManager(
                         new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
                 rvOfertas.setItemAnimator(new DefaultItemAnimator());
+                setBloquearShake(false);
             }
 
             @Override
             public void OnError(String msg) {
                 Toast.makeText(OfertasFragment.this.getActivity(), msg, Toast.LENGTH_SHORT).show();
+                setBloquearShake(false);
             }
         });
 
@@ -68,4 +71,7 @@ public class OfertasFragment extends Fragment implements IFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    protected void setBloquearShake(boolean valor)
+    { ((MainActivity)getActivity()).bloquearShake = valor; }
 }

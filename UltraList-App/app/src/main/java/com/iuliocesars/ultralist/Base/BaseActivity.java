@@ -11,7 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.androidnetworking.internal.ANRequestQueue;
+import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Sensor.ShakeDetector;
+import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.RequestCode;
 
 /**
  * Created by IulioCesars on 11/03/2018.
@@ -22,6 +26,8 @@ public class BaseActivity extends AppCompatActivity
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
+    public boolean bloquearShake;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +37,7 @@ public class BaseActivity extends AppCompatActivity
         IniciarEventos();
         CargarRegistro();
 
+        bloquearShake = false;
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
@@ -40,7 +47,8 @@ public class BaseActivity extends AppCompatActivity
 
             @Override
             public void onShake(int count) {
-				OnShake();
+                if(!bloquearShake)
+				    OnShake();
             }
         });
     }
@@ -84,6 +92,8 @@ public class BaseActivity extends AppCompatActivity
     }
 
     protected void OnShake() {
-        Toast.makeText(BaseActivity.this, "SHAKE", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, ArticuloScrollingActivity.class);
+        i.putExtra(Extras.Oferta, true);
+        startActivityForResult(i, RequestCode.ArticuloActivity);
     }
 }

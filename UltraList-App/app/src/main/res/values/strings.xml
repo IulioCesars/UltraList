@@ -46,4 +46,6 @@
     <string name="txtNo">No</string>
     <string name="title_activity_maps">Map</string>
     <string name="txtBuscandoOferas">Buscando Ofertas</string>
+    <string name="txtNuevoArticulo">Nuevo Articulo</string>
+    <string name="txtNuevaOferta">Nueva Oferta</string>
 </resources>

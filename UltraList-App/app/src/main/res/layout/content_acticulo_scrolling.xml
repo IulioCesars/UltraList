@@ -84,6 +84,7 @@
             >
 
             <TextView
+                android:id="@+id/tvCantidad"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:layout_height="wrap_content"
@@ -126,6 +127,7 @@
             >
 
             <TextView
+                android:id="@+id/tvPrecioUnitario"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:layout_height="wrap_content"

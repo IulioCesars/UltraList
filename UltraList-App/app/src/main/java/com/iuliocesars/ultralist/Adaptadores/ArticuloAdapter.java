@@ -62,7 +62,7 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
 
             tvCategoria.setText(
                     itemView.getResources().getString(R.string.txtCategoria) + " " +
-                    articulo.getCategoria()
+                    ObtenerCategoria(articulo.getCategoria())
             );
             tvCantidad.setText(
                     itemView.getResources().getString(R.string.txtCantidad) + " " +
@@ -101,9 +101,29 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
                     parentActivity.startActivityForResult(i, RequestCode.ArticuloActivity);
                 }
             });
+
         }
 
+        protected String ObtenerCategoria(String cat)
+        {
+            Integer index = 0;
+            switch (cat)
+            {
+                case "Any": { index = 0; break;}
+                case "Home": { index = 1; break;}
+                case "Personal": { index = 2; break;}
+                case "Food": { index = 3; break;}
+                case "Technology": { index = 4; break;}
 
+                case "Ninguna": { index = 0; break;}
+                case "Hogar": { index = 1; break;}
+                case "Comida": { index = 3; break;}
+                case "Tecnologia": { index = 4; break;}
+            }
+
+            String[] arr = itemView.getContext().getResources().getStringArray(R.array.arrCategorias);
+            return arr[index];
+        }
     }
 
     @Override

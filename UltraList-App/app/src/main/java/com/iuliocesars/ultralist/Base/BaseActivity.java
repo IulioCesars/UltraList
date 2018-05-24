@@ -28,6 +28,13 @@ public class BaseActivity extends AppCompatActivity
     private ShakeDetector mShakeDetector;
     public boolean bloquearShake;
 
+    @Override
+    public void onBackPressed() {
+        OnBack();
+        super.onBackPressed();
+    }
+
+    public void OnBack() { }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

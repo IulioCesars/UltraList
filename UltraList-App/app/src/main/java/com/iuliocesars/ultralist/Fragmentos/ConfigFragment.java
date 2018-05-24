@@ -28,6 +28,8 @@ import com.iuliocesars.ultralist.Util.Extras;
 
 import java.util.List;
 
+import at.markushi.ui.CircleButton;
+
 /**
  * Created by IulioCesars on 22/05/2018.
  */
@@ -36,6 +38,8 @@ public class ConfigFragment extends Fragment implements IFragment
 {
     EditText etWebService;
     Button btnGuardar;
+    CircleButton cbGuardar;
+    View.OnClickListener onClickListener;
 
     @Nullable
     @Override
@@ -44,12 +48,13 @@ public class ConfigFragment extends Fragment implements IFragment
 
         etWebService = vistaInflada.findViewById(R.id.etWebService);
         btnGuardar = vistaInflada.findViewById(R.id.btnGuardar);
+        cbGuardar = vistaInflada.findViewById(R.id.btnGuardar2);
+
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(vistaInflada.getContext());
         etWebService.setText(preferences.getString(Extras.WebService, ""));
 
-
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
+        onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(vistaInflada.getContext());
@@ -59,7 +64,10 @@ public class ConfigFragment extends Fragment implements IFragment
                 editor.apply();
                 Toast.makeText(vistaInflada.getContext(), vistaInflada.getResources().getString(R.string.txtGuardando), Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+
+        btnGuardar.setOnClickListener(onClickListener);
+        cbGuardar.setOnClickListener(onClickListener);
 
 
         return vistaInflada;

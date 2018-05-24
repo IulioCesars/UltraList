@@ -64,13 +64,34 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
             itemView.findViewById(R.id.pnlMeGusta).setVisibility(View.VISIBLE);
         }
 
+        protected String ObtenerCategoria(String cat)
+        {
+            Integer index = 0;
+            switch (cat)
+            {
+                case "Any": { index = 0; break;}
+                case "Home": { index = 1; break;}
+                case "Personal": { index = 2; break;}
+                case "Food": { index = 3; break;}
+                case "Technology": { index = 4; break;}
+
+                case "Ninguna": { index = 0; break;}
+                case "Hogar": { index = 1; break;}
+                case "Comida": { index = 3; break;}
+                case "Tecnologia": { index = 4; break;}
+            }
+
+            String[] arr = itemView.getContext().getResources().getStringArray(R.array.arrCategorias);
+            return arr[index];
+        }
+
         public void Bind(final Oferta o)
         {
             tvNombre.setText(o.nombre);
 
             tvCategoria.setText(
                     itemView.getResources().getString(R.string.txtCategoria) + " " +
-                            o.categoria
+                            ObtenerCategoria(o.categoria)
             );
             tvTotal.setText(
                     itemView.getResources().getString(R.string.txtPrecioTotal) + " " + o.precio

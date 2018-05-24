@@ -42,7 +42,9 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.sql.Array;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ArticuloScrollingActivity extends BaseActivity {
@@ -133,7 +135,21 @@ public class ArticuloScrollingActivity extends BaseActivity {
 
             etNombre.setText(articulo.getNombre());
             etDescripcion.setText(articulo.getDescripcion());
-            spCategoria.setSelection(0);
+
+            switch (articulo.getCategoria())
+            {
+                case "Any": { spCategoria.setSelection(0); break;}
+                case "Home": { spCategoria.setSelection(1); break;}
+                case "Personal": { spCategoria.setSelection(2); break;}
+                case "Food": { spCategoria.setSelection(3); break;}
+                case "Technology": { spCategoria.setSelection(4); break;}
+
+                case "Ninguna": { spCategoria.setSelection(0); break;}
+                case "Hogar": { spCategoria.setSelection(1); break;}
+                case "Comida": { spCategoria.setSelection(3); break;}
+                case "Tecnologia": { spCategoria.setSelection(4); break;}
+            }
+
             contadorCantidad.AsignarValor(articulo.getCantidad());
             contadorPrecioUnitario.AsignarValor(articulo.getPrecio());
 

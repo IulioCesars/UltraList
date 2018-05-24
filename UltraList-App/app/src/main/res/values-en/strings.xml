@@ -7,14 +7,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="txtOfertas">Offer</string>
     <string name="txtListas">Shopping list</string>
-    <string name="title_activity_lista">0</string>
     <string name="txtNuevaLista">New Shopping list</string>
     <string name="txtCantidad">Quantity:</string>
     <string name="txtPrecioUnitario">Unit price:</string>
     <string name="txtPrecioTotal">Total price:</string>
     <string name="txtCategoria">Category:</string>
     <string name="txtNombreArticulo">Article name:</string>
-    <string name="title_activity_acticulo_scrolling">0</string>
     <string name="txtDescripcionArticulo">Description</string>
     <string name="txtCategoriaArticulo">Category</string>
     <string name="txtCantidadArticulo">Quantity</string>
@@ -38,4 +36,11 @@
     <string name="txtMeGustaExistente">\"I like\" this</string>
     <string name="txtCerrarSession">Log off</string>
     <string name="txtDeseaCerrarSession">Do you want to close session?</string>
+    <array name="arrCategorias">
+        <item>Any</item>
+        <item>Home</item>
+        <item>Personal</item>
+        <item>Food</item>
+        <item>Technology</item>
+    </array>
 </resources>

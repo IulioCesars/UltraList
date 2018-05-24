@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Activity.ListaActivity;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity
     IFragment fragmentoActual;
     ImageView ivFotoPerfil;
     TextView tvUserName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if(isLoggedIn)
+        { return; }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -176,4 +183,6 @@ public class MainActivity extends BaseActivity
 
         ft.commit();
     }
+
+
 }

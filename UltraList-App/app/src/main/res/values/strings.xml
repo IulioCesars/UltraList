@@ -10,7 +10,6 @@
     <string name="txtConfiguraciones">Configuaraciones</string>
     <string name="txtListas">Listas de compras</string>
     <string name="txtOfertas">Ofertas</string>
-    <string name="title_activity_lista">0</string>
 
     <string name="txtNuevaLista">Nueva Lista</string>
     <string name="txtCantidad">Cantidad:</string>
@@ -19,7 +18,6 @@
     <string name="txtCategoria">Categoria:</string>
 
     <string name="txtNombreArticulo">Nombre del articulo</string>
-    <string name="title_activity_acticulo_scrolling">0</string>
     <string name="txtDescripcionArticulo">Descripcion</string>
     <string name="txtCategoriaArticulo">Categoria</string>
     <string name="txtCantidadArticulo">Cantidad</string>
@@ -57,4 +55,6 @@
     <string name="txtMeGustaExistente">Ya se dio \"Me Gusta\" a esta oferta</string>
     <string name="txtCerrarSession">Cerrar Sesion</string>
     <string name="txtDeseaCerrarSession">Desea Cerrar Sesion?</string>
+    <string name="title_activity_lista"></string>
+    <string name="title_activity_acticulo_scrolling"></string>
 </resources>

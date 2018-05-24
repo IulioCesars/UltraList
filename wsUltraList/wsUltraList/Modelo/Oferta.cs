@@ -28,5 +28,6 @@ namespace wsUltraList.Modelo
         public string image_path { get; set; }
         public Nullable<decimal> lat { get; set; }
         public Nullable<decimal> lng { get; set; }
+        public Nullable<int> me_gusta { get; set; }
     }
 }

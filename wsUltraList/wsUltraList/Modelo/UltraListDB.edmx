@@ -41,6 +41,14 @@
           <Property Name="fecha_modifico" Type="datetime" />
           <Property Name="estatus" Type="int" />
         </EntityType>
+        <EntityType Name="MeGusta">
+          <Key>
+            <PropertyRef Name="id_me_gusta" />
+          </Key>
+          <Property Name="id_me_gusta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_oferta" Type="int" />
+          <Property Name="id_usuario" Type="int" />
+        </EntityType>
         <EntityType Name="Oferta">
           <Key>
             <PropertyRef Name="id_oferta" />
@@ -59,6 +67,7 @@
           <Property Name="image_path" Type="nvarchar(max)" />
           <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
           <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="me_gusta" Type="int" />
         </EntityType>
         <Association Name="FK_Articulo_Lista">
           <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
@@ -75,6 +84,7 @@
         <EntityContainer Name="ModeloStoreContainer">
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lista" EntityType="Self.Lista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeGusta" EntityType="Self.MeGusta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
             <End Role="Lista" EntitySet="Lista" />
@@ -108,6 +118,7 @@
             <End Role="Lista" EntitySet="Lista" />
             <End Role="Articulo" EntitySet="Articulo" />
           </AssociationSet>
+          <EntitySet Name="MeGusta" EntityType="Modelo.MeGusta" />
         </EntityContainer>
         <EntityType Name="Articulo">
           <Key>
@@ -150,6 +161,7 @@
           <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="lat" Type="Decimal" Precision="18" Scale="6" />
           <Property Name="lng" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="me_gusta" Type="Int32" />
         </EntityType>
         <Association Name="FK_Articulo_Lista">
           <End Type="Modelo.Lista" Role="Lista" Multiplicity="0..1" />
@@ -163,6 +175,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MeGusta">
+          <Key>
+            <PropertyRef Name="id_me_gusta" />
+          </Key>
+          <Property Name="id_me_gusta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_oferta" Type="Int32" />
+          <Property Name="id_usuario" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -210,6 +230,7 @@
           <EntitySetMapping Name="Oferta">
             <EntityTypeMapping TypeName="Modelo.Oferta">
               <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="me_gusta" ColumnName="me_gusta" />
                 <ScalarProperty Name="lng" ColumnName="lng" />
                 <ScalarProperty Name="lat" ColumnName="lat" />
                 <ScalarProperty Name="image_path" ColumnName="image_path" />
@@ -224,6 +245,15 @@
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
                 <ScalarProperty Name="id_oferta" ColumnName="id_oferta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeGusta">
+            <EntityTypeMapping TypeName="Modelo.MeGusta">
+              <MappingFragment StoreEntitySet="MeGusta">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_oferta" ColumnName="id_oferta" />
+                <ScalarProperty Name="id_me_gusta" ColumnName="id_me_gusta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

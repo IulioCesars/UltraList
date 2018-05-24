@@ -2,6 +2,8 @@ package com.iuliocesars.ultralist.NET;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -10,6 +12,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.ConexionWS;
+import com.iuliocesars.ultralist.Util.Extras;
 import com.iuliocesars.ultralist.Util.Result;
 import com.jacksonandroidnetworking.JacksonParserFactory;
 
@@ -43,7 +46,11 @@ public abstract class BaseNet<T>
     protected abstract String ObtenerControlador();
 
 
-    protected String ObtenerURL(String Accion) { return ConexionWS.URL_API + "/" + ObtenerControlador() + "/" + Accion; }
+    protected String ObtenerURL(String Accion) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String URL = preferences.getString(Extras.WebService, "");
+        return URL + "/api/" + ObtenerControlador() + "/" + Accion;
+    }
 
     public void Agregar(T entidad, final INetAction<Boolean> OnResponse) {
         MostrarMensajeProgreso(R.string.txtGuardando, R.string.txtPorFavorEspere);

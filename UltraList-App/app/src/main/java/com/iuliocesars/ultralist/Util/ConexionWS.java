@@ -17,5 +17,6 @@ public class ConexionWS
     public static final String Eliminar = "Eliminar";
     public static final String ObtenerLista = "ObtenerLista";
     public static final String Prueba = "Prueba";
+    public static final String MeGusta = "MeGusta";
 
 }

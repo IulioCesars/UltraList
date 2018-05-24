@@ -36,6 +36,14 @@
     <Property Name="fecha_modifico" Type="datetime" />
     <Property Name="estatus" Type="int" />
   </EntityType>
+  <EntityType Name="MeGusta">
+    <Key>
+      <PropertyRef Name="id_me_gusta" />
+    </Key>
+    <Property Name="id_me_gusta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_oferta" Type="int" />
+    <Property Name="id_usuario" Type="int" />
+  </EntityType>
   <EntityType Name="Oferta">
     <Key>
       <PropertyRef Name="id_oferta" />
@@ -54,6 +62,7 @@
     <Property Name="image_path" Type="nvarchar(max)" />
     <Property Name="lat" Type="decimal" Precision="18" Scale="6" />
     <Property Name="lng" Type="decimal" Precision="18" Scale="6" />
+    <Property Name="me_gusta" Type="int" />
   </EntityType>
   <Association Name="FK_Articulo_Lista">
     <End Role="Lista" Type="Self.Lista" Multiplicity="0..1" />
@@ -70,6 +79,7 @@
   <EntityContainer Name="ModeloStoreContainer">
     <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lista" EntityType="Self.Lista" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MeGusta" EntityType="Self.MeGusta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Articulo_Lista" Association="Self.FK_Articulo_Lista">
       <End Role="Lista" EntitySet="Lista" />

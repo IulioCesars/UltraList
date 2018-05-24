@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +15,13 @@ import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Activity.MapsActivity;
 import com.iuliocesars.ultralist.Modelos.Articulo;
 import com.iuliocesars.ultralist.Modelos.Oferta;
+import com.iuliocesars.ultralist.NET.INetResponse;
+import com.iuliocesars.ultralist.NET.Net;
 import com.iuliocesars.ultralist.R;
 import com.iuliocesars.ultralist.Util.ConexionWS;
 import com.iuliocesars.ultralist.Util.Extras;
 import com.iuliocesars.ultralist.Util.RequestCode;
+import com.iuliocesars.ultralist.Util.Result;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -37,8 +41,10 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
 
     public static class OfertaViewHolder extends RecyclerView.ViewHolder
     {
-        TextView tvNombre, tvCategoria, tvCantidad, tvPrecioUnitario, tvTotal;
+        TextView tvNombre, tvCategoria, tvCantidad, tvPrecioUnitario, tvTotal, tvMeGusta;
         ImageView ivFoto;
+        ImageButton btnMeGusta;
+
         View view;
 
         public OfertaViewHolder(View itemView) {
@@ -50,9 +56,12 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
             tvPrecioUnitario = itemView.findViewById(R.id.tvPrecioUnitario);
             tvTotal = itemView.findViewById(R.id.tvTotal);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            tvMeGusta = itemView.findViewById(R.id.tvMeGusta);
+            btnMeGusta = itemView.findViewById(R.id.btnMeGusta);
 
             tvCantidad.setVisibility(View.INVISIBLE);
             tvPrecioUnitario.setVisibility(View.INVISIBLE);
+            itemView.findViewById(R.id.pnlMeGusta).setVisibility(View.VISIBLE);
         }
 
         public void Bind(final Oferta o)
@@ -79,6 +88,10 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
                 }
             }
 
+            tvMeGusta.setText(
+                    itemView.getResources().getString(R.string.txtMeGusta) + ": " + o.me_gusta
+            );
+
             this.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,6 +100,30 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
                     Intent i = new Intent(parentActivity, MapsActivity.class);
                     i.putExtra(Extras.Oferta, o);
                     parentActivity.startActivityForResult(i, RequestCode.MapsActivity);
+                }
+            });
+
+            this.btnMeGusta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Net.Oferta(itemView.getContext()).MeGusta(o.id_oferta, 0, new INetResponse<Result<Integer>>() {
+                        @Override
+                        public void OnSuccess(Result<Integer> entidad) {
+                            if(entidad.getExito()) {
+                                tvMeGusta.setText(
+                                        itemView.getResources().getString(R.string.txtMeGusta) + ": " + entidad.getValor()
+                                );
+                            }
+                            else {
+                                Toast.makeText(itemView.getContext(), itemView.getResources().getString(R.string.txtMeGustaExistente), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void OnError(String msg) {
+                            Toast.makeText(itemView.getContext(), msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }

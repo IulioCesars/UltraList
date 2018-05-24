@@ -28,5 +28,6 @@ namespace wsUltraList.Modelo
         public virtual DbSet<Lista> Lista { get; set; }
         public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<Oferta> Oferta { get; set; }
+        public virtual DbSet<MeGusta> MeGusta { get; set; }
     }
 }

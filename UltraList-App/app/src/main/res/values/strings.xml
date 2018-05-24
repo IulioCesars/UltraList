@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UltraList</string>
+    <string name="app_name" translatable="false">UltraList</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,9 +8,9 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
 
     <string name="txtConfiguraciones">Configuaraciones</string>
-    <string name="txtListas">Listas</string>
+    <string name="txtListas">Listas de compras</string>
     <string name="txtOfertas">Ofertas</string>
-    <string name="title_activity_lista"></string>
+    <string name="title_activity_lista">0</string>
 
     <string name="txtNuevaLista">Nueva Lista</string>
     <string name="txtCantidad">Cantidad:</string>
@@ -19,7 +19,7 @@
     <string name="txtCategoria">Categoria:</string>
 
     <string name="txtNombreArticulo">Nombre del articulo</string>
-    <string name="title_activity_acticulo_scrolling"></string>
+    <string name="title_activity_acticulo_scrolling">0</string>
     <string name="txtDescripcionArticulo">Descripcion</string>
     <string name="txtCategoriaArticulo">Categoria</string>
     <string name="txtCantidadArticulo">Cantidad</string>
@@ -27,11 +27,15 @@
     <string name="txtValidacionValorMinimo">El valor no puede ser menor a</string>
     <string name="txtValidacionValorMaximo">El valor no puede ser mayor a</string>
 
-    <string name="facebook_app_id">1853370148083382</string>
-    <string name="fb_login_protocol_scheme">fb1853370148083382</string>
+    <string name="facebook_app_id" translatable="false">1853370148083382</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1853370148083382</string>
 
     <array name="arrCategorias">
         <item>Ninguna</item>
+        <item>Hogar</item>
+        <item>Personal</item>
+        <item>Comida</item>
+        <item>Tecnologia</item>
     </array>
     <string name="txtEliminar">Eliminar</string>
     <string name="txtEliminarRegistro">Desea eliminar el registro seleccionado?</string>
@@ -48,4 +52,9 @@
     <string name="txtBuscandoOferas">Buscando Ofertas</string>
     <string name="txtNuevoArticulo">Nuevo Articulo</string>
     <string name="txtNuevaOferta">Nueva Oferta</string>
+    <string name="txtMeGusta">Me Gusta</string>
+    <string name="txtWebService" translatable="false">Web Service</string>
+    <string name="txtMeGustaExistente">Ya se dio \"Me Gusta\" a esta oferta</string>
+    <string name="txtCerrarSession">Cerrar Sesion</string>
+    <string name="txtDeseaCerrarSession">Desea Cerrar Sesion?</string>
 </resources>

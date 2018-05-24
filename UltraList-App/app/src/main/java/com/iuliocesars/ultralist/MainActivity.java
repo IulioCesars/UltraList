@@ -1,7 +1,10 @@
 package com.iuliocesars.ultralist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,18 +20,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+import com.iuliocesars.ultralist.Activity.ArticuloScrollingActivity;
 import com.iuliocesars.ultralist.Activity.ListaActivity;
 import com.iuliocesars.ultralist.Adaptadores.ListaAdapter;
 import com.iuliocesars.ultralist.Base.BaseActivity;
 import com.iuliocesars.ultralist.DAO.DAO;
+import com.iuliocesars.ultralist.Fragmentos.ConfigFragment;
 import com.iuliocesars.ultralist.Fragmentos.MainFragment;
 import com.iuliocesars.ultralist.Fragmentos.MapaOfertasFragment;
 import com.iuliocesars.ultralist.Fragmentos.OfertasFragment;
 import com.iuliocesars.ultralist.Interfaces.IFragment;
 import com.iuliocesars.ultralist.Modelos.Lista;
+import com.iuliocesars.ultralist.Util.ConexionWS;
+import com.iuliocesars.ultralist.Util.Extras;
+import com.iuliocesars.ultralist.Util.Mensajes;
 import com.iuliocesars.ultralist.Util.RequestCode;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +48,8 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     IFragment fragmentoActual;
+    ImageView ivFotoPerfil;
+    TextView tvUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +66,15 @@ public class MainActivity extends BaseActivity
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ivFotoPerfil = header.findViewById(R.id.ivFotoPerfil);
+        tvUserName = header.findViewById(R.id.tvUserName);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        tvUserName.setText(preferences.getString(Extras.Name, ""));
+        Picasso.get().load(preferences.getString(Extras.Photo, "")).into(ivFotoPerfil);
 
         setSupportActionBar(toolbar);
 
@@ -60,7 +82,6 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -110,12 +131,26 @@ public class MainActivity extends BaseActivity
         {
             case R.id.nav_listas : { changeFragment(new MainFragment(), RequestCode.MainFragment); break;}
             case R.id.nav_ofertas : {changeFragment(new OfertasFragment(), RequestCode.OfertasFragment); break;}
+            case R.id.nav_configuraciones: { changeFragment(new ConfigFragment(), RequestCode.ConfigFragment); break;}
+            case R.id.nav_cerrar_session: { CerrarSesion(); break; }
+            case R.id.nav_nueva_oferta: { OnShake(); break; }
             default: { break; }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    protected void CerrarSesion()
+    {
+        Mensajes.Confirmar(this, R.string.txtDeseaCerrarSession, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                LoginManager.getInstance().logOut();
+                finish();
+            }
+        });
     }
 
     @Override

@@ -15,5 +15,6 @@ public class RequestCode
     public static final int MapaOfertasFragment = 1006;
     public static final int MapsActivity = 1007;
     public static final int BaseActivity  = 1008;
+    public static final int ConfigFragment  = 1009;
 
 }

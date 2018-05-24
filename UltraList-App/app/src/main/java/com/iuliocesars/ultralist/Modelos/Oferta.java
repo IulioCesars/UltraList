@@ -26,7 +26,7 @@ public class Oferta implements Serializable
     public String image_path;
     public double lat;
     public double lng;
-
+    public int me_gusta;
 
 
     public void SetUbicacion(LatLng ll)

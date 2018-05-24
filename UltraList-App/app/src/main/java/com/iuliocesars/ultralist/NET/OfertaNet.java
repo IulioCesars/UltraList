@@ -54,6 +54,32 @@ public class OfertaNet extends BaseNet<Oferta>
 
     }
 
+    public void MeGusta(int idOferta, int idUsuario, final INetResponse<Result<Integer>> OnResponse )
+    {
+        AndroidNetworking.get(ObtenerURL(ConexionWS.MeGusta) + "?idOferta=" + idOferta + "&idUsuario=" + idUsuario)
+                //.addHeaders("Content-Type", "application/json")
+                //.addQueryParameter(idOferta)
+                //.addQueryParameter(idUsuario)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsObject(Result.class, new ParsedRequestListener<Result<Integer>>(){
+                    @Override
+                    public void onResponse(Result<Integer> response) {
+                        if(OnResponse != null)
+                            OnResponse.OnSuccess(response);
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if(OnResponse != null)
+                            OnResponse.OnError(anError.getMessage());
+                        else
+                            Toast.makeText(ctx, anError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
     @Override
     protected String ObtenerControlador() {
         return "Oferta";

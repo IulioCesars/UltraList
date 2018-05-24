@@ -1,6 +1,7 @@
 package com.iuliocesars.ultralist.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -54,7 +55,7 @@ public class ArticuloScrollingActivity extends BaseActivity {
     Articulo articulo;
     Boolean modoEdicion;
     boolean modoOferta;
-
+    ProgressDialog m_progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,10 +162,10 @@ public class ArticuloScrollingActivity extends BaseActivity {
         }
         else if(i.hasExtra(Extras.Oferta))
         {
-            contadorPrecioUnitario.setVisibility(false);
+            //contadorPrecioUnitario.setVisibility(false);
             contadorCantidad.setVisibility(false);
             findViewById(R.id.tvCantidad).setVisibility(View.INVISIBLE);
-            findViewById(R.id.tvPrecioUnitario).setVisibility(View.INVISIBLE);
+            //findViewById(R.id.tvPrecioUnitario).setVisibility(View.INVISIBLE);
             modoOferta = true;
 
             articulo = new Articulo();
@@ -195,6 +196,7 @@ public class ArticuloScrollingActivity extends BaseActivity {
                 @Override
                 public void Execute(Integer entidad) {
                     Toast.makeText(ArticuloScrollingActivity.this, "Se compartio como oferta", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             });
         }
@@ -206,7 +208,8 @@ public class ArticuloScrollingActivity extends BaseActivity {
 
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                if(!es_oferta)
+                    finish();
             } else {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show();
             }
@@ -217,7 +220,8 @@ public class ArticuloScrollingActivity extends BaseActivity {
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
 
-                finish();
+                if(!es_oferta)
+                    finish();
             } else {
                 Toast.makeText(this, "Error al editar", Toast.LENGTH_SHORT).show();
             }

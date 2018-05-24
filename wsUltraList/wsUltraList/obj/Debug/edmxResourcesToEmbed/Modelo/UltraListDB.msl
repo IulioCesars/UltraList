@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Oferta">
       <EntityTypeMapping TypeName="Modelo.Oferta">
         <MappingFragment StoreEntitySet="Oferta">
+          <ScalarProperty Name="me_gusta" ColumnName="me_gusta" />
           <ScalarProperty Name="lng" ColumnName="lng" />
           <ScalarProperty Name="lat" ColumnName="lat" />
           <ScalarProperty Name="image_path" ColumnName="image_path" />
@@ -56,6 +57,15 @@
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
           <ScalarProperty Name="id_oferta" ColumnName="id_oferta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MeGusta">
+      <EntityTypeMapping TypeName="Modelo.MeGusta">
+        <MappingFragment StoreEntitySet="MeGusta">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_oferta" ColumnName="id_oferta" />
+          <ScalarProperty Name="id_me_gusta" ColumnName="id_me_gusta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

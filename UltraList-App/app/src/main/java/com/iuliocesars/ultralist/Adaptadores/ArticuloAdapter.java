@@ -50,6 +50,9 @@ public class ArticuloAdapter extends RecyclerView.Adapter<ArticuloAdapter.Articu
             tvPrecioUnitario = itemView.findViewById(R.id.tvPrecioUnitario);
             tvTotal = itemView.findViewById(R.id.tvTotal);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            ViewGroup.LayoutParams lp = itemView.findViewById(R.id.pnlMeGusta).getLayoutParams();
+            lp.height = 0;
+            itemView.findViewById(R.id.pnlMeGusta).setLayoutParams(lp);
         }
 
         public void Bind(Articulo a)

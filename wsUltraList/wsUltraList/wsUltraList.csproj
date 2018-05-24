@@ -128,8 +128,12 @@
     <Compile Include="Modelo\Entidades\Base\Entidad.cs" />
     <Compile Include="Modelo\Entidades\Base\IEntidad.cs" />
     <Compile Include="Modelo\Entidades\Lista.cs" />
+    <Compile Include="Modelo\Entidades\MeGusta.cs" />
     <Compile Include="Modelo\Entidades\Oferta.cs" />
     <Compile Include="Modelo\Lista.cs">
+      <DependentUpon>UltraListDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\MeGusta.cs">
       <DependentUpon>UltraListDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Modelo\Oferta.cs">
